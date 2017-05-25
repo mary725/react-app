@@ -1,0 +1,29 @@
+.tree-item {
+    display: inline-block;
+
+    .item-wrapper {
+        display: flex;
+        min-width: 200px;
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+
+            &-name,
+            &-actions {
+                display: inline-block;
+            }
+        }
+    }
+
+    .items-list {
+        margin-left: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .icon {
+        color: rgb(0, 188, 212) !important;
+    }
+}
