@@ -1,0 +1,27 @@
+@import "../../styles/colors";
+
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  .show-done-chb {
+    width: 200px !important;
+  }
+
+  .search-block {
+    width: 256px;
+    height: 48px;
+    position: relative;
+    margin-left: 30px;
+    border-bottom: 1px solid $color_grey;
+
+    .search-input {
+      border: none;
+    }
+
+    .icon-delete {
+      position: absolute;
+    }
+  }
+}

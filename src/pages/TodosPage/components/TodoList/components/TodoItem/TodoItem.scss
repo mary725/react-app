@@ -1,0 +1,28 @@
+@import "../../../../../../styles/colors";
+@import "../../../../../../styles/mixins";
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 40px;
+  border-bottom: 1px solid $color_grey;
+
+  &:first-child {
+    border-top:  1px solid $color_grey;
+  }
+
+  .info {
+    display: flex;
+    width: 100%;
+
+    .title {
+      @include text-ellipsis();
+      font-weight: bold;
+    }
+
+    .chb {
+      margin-right: 10px;
+      width: auto !important;
+    }
+  }
+}

@@ -6,7 +6,6 @@ import Tree from '../../components/Tree';
 import Filter from '../../components/Filter';
 import InputWithButton from '../../components/InputWithButton';
 
-import logo from '../../logo.svg';
 import './HomePage.scss';
 
 const treeData = [
@@ -39,30 +38,37 @@ const treeData = [
 
 @injectIntl
 class HomePage extends Component {
+    constructor(props) {
+        super(props);
+
+        const formatMessage = props.intl.formatMessage;
+
+        this.btnLabel = formatMessage({ id: 'common.button.add' });
+        this.enterCategoryTitleHint = formatMessage({ id: 'todosPage.actionPanel.enterCategoryTitleHint' });
+        this.enterTaskTitleHint = formatMessage({ id: 'todosPage.actionPanel.enterTaskTitleHint' });
+    }
+
     render() {
-        const { children, intl: { formatMessage } } = this.props;
-        const btnLabel = formatMessage({ id: 'common.button.add' });
+        const { children } = this.props;
 
         return (
-            <div className="App">
-                <div className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h2>Welcome to React</h2>
+            <div className="home-page">
+                <Filter className='filter-block'></Filter>
+                <LinearProgress mode="determinate" value={30} max={100}/>
+                <div className="action-panel">
+                    <InputWithButton
+                        btnLabel={this.btnLabel}
+                        hint={this.enterCategoryTitleHint}/>
+                    <InputWithButton
+                        btnLabel={this.btnLabel}
+                        hint={this.enterTaskTitleHint}/>
                 </div>
-                <div className="home-page">
-                    <Filter></Filter>
-                    <LinearProgress mode="determinate" value={30} max={100} />
-                    <div className="action-panel">
-                        <InputWithButton btnLabel={btnLabel} />
-                        <InputWithButton btnLabel={btnLabel} />
+                <div className="page-container">
+                    <div className="tree">
+                        <Tree data={treeData}></Tree>
                     </div>
-                    <div className="container">
-                        <div className="tree">
-                            <Tree data={treeData}></Tree>
-                        </div>
-                        <div className="content">
-                            { children }
-                        </div>
+                    <div className="content">
+                        { children }
                     </div>
                 </div>
             </div>

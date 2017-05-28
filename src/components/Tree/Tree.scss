@@ -1,29 +1,46 @@
+@import "../../styles/colors";
+
 .tree-item {
     display: inline-block;
 
     .item-wrapper {
         display: flex;
         min-width: 200px;
+        position: relative;
 
         .item {
             display: flex;
             justify-content: space-between;
             flex-grow: 1;
+            margin-left: 25px;
+            padding: 3px;
+            border-bottom: 1px solid $color_grey;
+
+            &:hover {
+                background-color: $color_blue_light;
+            }
 
             &-name,
             &-actions {
-                display: inline-block;
+                display: flex;
+                align-items: center;
+            }
+
+            &-name {
+                .icon-edit {
+                    margin-left: 10px;
+                }
             }
         }
     }
 
     .items-list {
-        margin-left: 40px;
+        margin-left: 35px;
         display: flex;
         flex-direction: column;
     }
 
-    .icon {
-        color: rgb(0, 188, 212) !important;
+    .icon-arrow {
+        position: absolute;
     }
 }

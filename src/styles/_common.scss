@@ -1,0 +1,15 @@
+@import "colors";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+input {
+  outline: none;
+}
+
+.icon {
+  color: $color_blue !important;
+}

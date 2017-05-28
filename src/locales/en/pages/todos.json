@@ -1,0 +1,6 @@
+{
+  "todosPage.filter.showDone": "Show done",
+  "todosPage.actionPanel.enterCategoryTitleHint": "Enter category title",
+  "todosPage.actionPanel.enterTaskTitleHint": "Enter task title",
+  "todosPage.filter.searchHint": "Search"
+}

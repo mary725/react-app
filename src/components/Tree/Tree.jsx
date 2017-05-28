@@ -9,30 +9,28 @@ import ContentClear from 'react-material-icons/icons/content/clear';
 import _ from 'lodash';
 
 import './Tree.scss';
+/*
+ @mapProps(props => {
+ const data = _.isArray(props.data) ? { children: props.data } : props.data;
 
-/*@mapProps(props => {
-    const data = _.isArray(props.data) ? { children: props.data } : props.data;
-
-    return {
-        ...data,
-        showOnlyList: !data.id
-    };
-})*/
+ return {
+ ...data,
+ showOnlyList: _.isArray(props.data)
+ };
+ })
+ */
 @autobind
 class TreeItem extends Component {
-   constructor(props) {
-      super(props);
-/*
-      const data = _.isArray(props.data) ? { children: _.cloneDeep(props.data) } : _.cloneDeep(props.data);
+    constructor(props) {
+        super(props);
 
-      this.state = _.assign({}, props.data, { showOnlyList: !data.id });*/
-      const data = _.isArray(props.data) ? { children: _.cloneDeep(props.data) } : _.cloneDeep(props.data);
+        const data = _.isArray(props.data) ? { children: _.cloneDeep(props.data) } : _.cloneDeep(props.data);
 
-      this.state = _.assign({}, data, { showOnlyList: !data.id });
-   };
+        this.state = _.assign({}, data, { showOnlyList: !data.id });
+    };
 
     onExpand() {
-        this.setState({ isExpanded: this.state.isExpanded });
+        this.setState({ isExpanded: !this.state.isExpanded });
     }
 
     addChildren() {
@@ -46,38 +44,38 @@ class TreeItem extends Component {
         this.setState({ children });
     }
 
-   render() {
-    const { categoryName, children = [], isExpanded, showOnlyList } = this.state;
-    const expandIcon = isExpanded
-                        ? <HardwareKeyboardArrowDown onClick={this.onExpand} className="icon" />
-                        : <HardwareKeyboardArrowRight onClick={this.onExpand} className="icon" />;
+    render() {
+        const { categoryName, children = [], isExpanded, showOnlyList } = this.state;
+        const expandIcon = isExpanded
+            ? <HardwareKeyboardArrowDown onClick={this.onExpand} className="icon icon-arrow"/>
+            : <HardwareKeyboardArrowRight onClick={this.onExpand} className="icon icon-arrow"/>;
 
-      return (
+        return (
             <div className="tree-item">
                 <div className="item-wrapper">
                     { children.length > 0 && !showOnlyList &&
-                        expandIcon }
+                    expandIcon }
                     { !showOnlyList && (
-                    <div className="item">
-                        <div className="item-name">
-                            <span>{categoryName}</span>
-                            <EditorModeEdit className="icon" />
-                        </div>
-                        <div className="item-actions">
-                            <ContentClear className="icon"/>
-                            <ContentAddCircleOutline onClick={this.addChildren} className="icon" />
-                        </div>
-                    </div>) }
+                        <div className="item">
+                            <div className="item-name">
+                                <span>{categoryName}</span>
+                                <EditorModeEdit className="icon icon-edit"/>
+                            </div>
+                            <div className="item-actions">
+                                <ContentClear className="icon"/>
+                                <ContentAddCircleOutline onClick={this.addChildren} className="icon"/>
+                            </div>
+                        </div>) }
                 </div>
                 { ( isExpanded || showOnlyList ) &&
-                    <div className="items-list">
-                        { children.map((item, index) => (
-                            <TreeItem key={item.id.toString()} data={item}></TreeItem>
-                            )) }
-                    </div>}
-             </div>
-      );
-   }
+                <div className="items-list">
+                    { children.map((item, index) => (
+                        <TreeItem key={item.id.toString()} data={item}></TreeItem>
+                    )) }
+                </div>}
+            </div>
+        );
+    }
 }
 
 export default TreeItem;

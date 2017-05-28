@@ -1,33 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import autobind from 'autobind-decorator';
-import Checkbox from 'material-ui/Checkbox';
-import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
-import _ from 'lodash';
+
+import TodoItem from './components/TodoItem';
 
 import './TodoList.scss';
 
 @autobind
 class TodoList extends Component {
-   constructor(props) {
-      super(props);
-
-      this.state = [];
+   static propTypes = {
+      list: PropTypes.array
    };
 
    render() {
-      const { list } = this.state;
+      const { list } = this.props;
 
       return (
             <div className="todo-list">
                 {
-                    list.map((item, index) => (
-                        <div key={item.id.toString()} className="item">
-                            <div>
-                                <Checkbox label="Show done" />
-                                <span>{item.title}</span>
-                            </div>
-                            <EditorModeEdit />
-                        </div>
+                    list.map((item) => (
+                        <TodoItem item={item} />
                     ))
                 }
             </div>
