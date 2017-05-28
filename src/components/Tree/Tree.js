@@ -51,8 +51,8 @@ class TreeItem extends Component {
         const { name, children = [], isExpanded, showOnlyList } = this.state;
         const Component = this.props.component;
         const expandIcon = isExpanded
-            ? <HardwareKeyboardArrowDown onClick={this.onExpand} className="icon icon-arrow"/>
-            : <HardwareKeyboardArrowRight onClick={this.onExpand} className="icon icon-arrow"/>;
+            ? <HardwareKeyboardArrowDown onClick={this.onExpand} className="icon icon-arrow" />
+            : <HardwareKeyboardArrowRight onClick={this.onExpand} className="icon icon-arrow" />;
         const listClasses = cn('items-list', { 'nested-list': !showOnlyList });
 
         return (
@@ -60,10 +60,10 @@ class TreeItem extends Component {
                 <div className="item-wrapper">
                     {
                         children.length > 0 &&
-                            !showOnlyList &&
-                            expandIcon
+                        !showOnlyList &&
+                        expandIcon
                     }
-                    { !showOnlyList &&
+                    {!showOnlyList &&
                         (
                             <div className="item">
                                 {
@@ -75,13 +75,13 @@ class TreeItem extends Component {
                         )
                     }
                 </div>
-                { 
-                    ( isExpanded || showOnlyList ) &&
-                        <div className={listClasses}>
-                            { children.map((item, index) => (
-                                <TreeItem key={item.id.toString()} data={item} component={Component}></TreeItem>
-                            )) }
-                        </div>
+                {
+                    (isExpanded || showOnlyList) &&
+                    <div className={listClasses}>
+                        {children.map((item, index) => (
+                            <TreeItem key={item.id.toString()} data={item} component={Component}></TreeItem>
+                        ))}
+                    </div>
                 }
             </div>
         );

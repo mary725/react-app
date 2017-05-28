@@ -9,34 +9,6 @@ import TodoProfileTreeItem from './components/TodoProfileTreeItem';
 
 import './TodoProfilePage.scss';
 
-const treeData = [
-    {
-        id: 1,
-        categoryName: "11111",
-        isExpanded: true,
-        children: [
-            {
-                id: 11,
-                categoryName: "11111",
-                isExpanded: false,
-                children: []
-            },
-            {
-                id: 12,
-                categoryName: "11111",
-                isExpanded: false,
-                children: []
-            }
-        ]
-    },
-    {
-        id: 2,
-        categoryName: "22222",
-        isExpanded: false,
-        children: []
-    }
-];
-
 @injectIntl
 class TodoProfilePage extends Component {
     constructor(props) {
@@ -52,10 +24,12 @@ class TodoProfilePage extends Component {
     }
 
     render() {
+        const { categoriesTree } = this.props;
+
         return (
             <div className="todo-profile-page">
                 <div className="tree">
-                    <Tree data={treeData} component={TodoProfileTreeItem} />
+                    <Tree data={categoriesTree} component={TodoProfileTreeItem} />
                 </div>
                 <div className="tree-content">
                     <div className='action-panel'>

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import store from './context/store';
 import * as locales from './locales';
 import Layout from './pages/Layout';
 
@@ -14,9 +16,9 @@ class App extends Component {
         return (
             <IntlProvider locale={'en'} messages={messages}>
                 <MuiThemeProvider>
-                    <div>
+                    <Provider store={store}>
                         <Layout />
-                    </div>
+                    </Provider>
                 </MuiThemeProvider>
             </IntlProvider>
         );

@@ -12,11 +12,11 @@ const TodosTreeItem = (props) => {
         <div className="todos-tree-item">
             <div className="todos-tree-item-name">
                 <span>{categoryName}</span>
-                <EditorModeEdit className="icon icon-edit"/>
+                <EditorModeEdit className="icon icon-edit" />
             </div>
             <div className="todos-tree-item-actions">
-                <ContentClear className="icon"/>
-                <ContentAddCircleOutline className="icon"/>
+                <ContentClear className="icon" />
+                <ContentAddCircleOutline className="icon" />
             </div>
         </div>
     );
