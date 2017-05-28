@@ -1,34 +1,43 @@
 @import "../../styles/colors";
 
 .todo-profile-page {
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-
-  .action-panel {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin: 40px 10px;
 
-    .btn {
-      margin-left: 15px;
-      padding: 0;
-      border: 0;
-    }
-  }
+    .tree-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-left: 40px;
+        margin-top: 10px;
 
-  .action-panel,
-  .title,
-  .chb-done {
-    margin-bottom: 10px;
-  }
+        .action-panel {
+          display: flex;
+          justify-content: flex-end;
 
-  .description {
-    height: 500px;
-    resize: none;
-    border: 1px solid $color_grey;
+          .btn {
+            margin-left: 15px;
+            padding: 0;
+            border: 0;
+          }
+        }
 
-    &:focus {
-      border: 1px solid $color_blue;
-    }
-  }
+        .action-panel,
+        .title,
+        .chb-done {
+          margin-bottom: 10px;
+        }
+
+        .description {
+          height: 500px;
+          flex-grow: 1;
+          resize: none;
+          border: 1px solid $color_grey;
+
+          &:focus {
+            border: 1px solid $color_blue;
+          }
+        }
+     }
 }

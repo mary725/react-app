@@ -16,7 +16,7 @@ class TodoItem extends Component {
       const { item } = this.props;
 
       return (
-         <div key={item.id && item.id.toString()} className="todo-item">
+         <div className="todo-item">
              <div className='info'>
                  <Checkbox className='chb' />
                  <span className='title'>{item.title}</span>

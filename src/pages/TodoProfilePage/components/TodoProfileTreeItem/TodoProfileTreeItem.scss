@@ -1,0 +1,19 @@
+@import '../../../../styles/colors';
+
+.todo-profile-tree-item {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 3px;
+    border-bottom: 1px solid $color_grey;
+
+    &:hover {
+        background-color: $color_blue_light;
+    }
+
+    &-name,
+    &-actions {
+        display: flex;
+        align-items: center;
+    }
+}

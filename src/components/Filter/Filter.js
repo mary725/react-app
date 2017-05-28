@@ -36,7 +36,7 @@ class Filter extends Component {
                 <div className='search-block'>
                     <input className='search-input'
                         placeholder={this.searchHint}/>
-                    <ContentClear className='icon icon-delete' />
+                    <ContentClear className='icon' />
                 </div>
             </div>
         );

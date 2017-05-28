@@ -1,16 +1,18 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { } from 'react-router-dom';
 
-import HomePage from './pages/HomePage';
 import TodosPage from './pages/TodosPage';
 import TodoProfilePage from './pages/TodoProfilePage';
 
 const routes = (
-    <Switch>
-        <Route exact path='/' component={HomePage}></Route>
-        <Route path='/todos' component={TodosPage}/>
-        <Route path='/todoProfile' component={TodoProfilePage}/>
-    </Switch>
+    <Router>
+        <Switch>
+            <Route exact path='/' component={TodosPage}></Route>
+            <Route path='/todos' component={TodosPage}/>
+            <Route path='/todoProfile' component={TodoProfilePage}/>
+        </Switch>
+    </Router>
 );
 
 export default routes;
