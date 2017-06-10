@@ -3,10 +3,10 @@ import autobind from 'autobind-decorator';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import './InputWithButton.scss';
+import './Modal.scss';
 
 @autobind
-class InputWithButton extends Component {
+class Modal extends Component {
     static propTypes = {
         btnLabel: PropTypes.string.isRequired,
         hint: PropTypes.string,
@@ -37,4 +37,4 @@ class InputWithButton extends Component {
     };
 }
 
-export default InputWithButton;
+export default Modal;

@@ -2,11 +2,13 @@ export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const EDIT_CATEGORY = 'EDIT_CATEGORY';
 
-export function addCategory(title, parentId) {
+export function addCategory(categoryName, parentId) {
     return {
         type: ADD_CATEGORY,
         payload: {
-            title,
+            item: {
+                categoryName
+            },
             parentId
         }
     };

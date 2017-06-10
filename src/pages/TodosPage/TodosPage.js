@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { injectIntl } from 'react-intl';
@@ -10,11 +11,21 @@ import InputWithButton from '../../components/InputWithButton';
 import TodoList from './components/TodoList';
 import TodosTreeItem from './components/TodosTreeItem';
 import { categoriesTreeActions } from '../../state/categoriesTree';
+import { todosActions } from '../../state/todos';
 
 import './TodosPage.scss';
 
 @injectIntl
+@autobind
 class TodosPage extends Component {
+    static propTypes = {
+        categoriesActions: PropTypes.shape({ // todo
+            addCategory: PropTypes.func.isRequired,
+            deleteCategory: PropTypes.func.isRequired,
+            editCategory: PropTypes.func.isRequired
+        })
+    };
+
     constructor(props) {
         super(props);
 
@@ -26,7 +37,7 @@ class TodosPage extends Component {
     }
 
     render() {
-        const { categoriesTree, todos } = this.props;
+        const { categoriesTree, todos, categoriesActions } = this.props;
 
         return (
             <div className="todos-page">
@@ -35,14 +46,19 @@ class TodosPage extends Component {
                 <div className="action-panel">
                     <InputWithButton
                         btnLabel={this.btnLabel}
-                        hint={this.enterCategoryTitleHint} />
+                        hint={this.enterCategoryTitleHint}
+                        onHandleBtnClick={categoriesActions.addCategory}/>
                     <InputWithButton
                         btnLabel={this.btnLabel}
-                        hint={this.enterTaskTitleHint} />
+                        hint={this.enterTaskTitleHint}
+                        onHandleBtnClick={() => {}}/>
                 </div>
                 <div className="tree-container">
                     <div className="tree">
-                        <Tree data={categoriesTree} component={TodosTreeItem} />
+                        <Tree
+                            data={categoriesTree}
+                            itemComponent={TodosTreeItem}
+                            additionalData={{todosActions, categoriesActions}} />
                     </div>
                     <div className="tree-content">
                         <TodoList list={todos} />
@@ -62,7 +78,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        categoriesActions: bindActionCreators(categoriesTreeActions, dispatch)
+        categoriesActions: bindActionCreators(categoriesTreeActions, dispatch),
+        todosActions: bindActionCreators(todosActions, dispatch)
     };
 }
 

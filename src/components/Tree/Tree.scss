@@ -1,30 +1,4 @@
-@import "../../styles/colors";
-
-.tree-item {
-    display: inline-block;
-
-    .item-wrapper {
-        display: flex;
-        min-width: 200px;
-        position: relative;
-
-        .item {
-            display: flex;
-            flex-grow: 1;
-            margin-left: 25px;
-        }
-    }
-
-    .items-list {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .nested-list {
-        margin-left: 35px;
-    }
-
-    .icon-arrow {
-        position: absolute;
-    }
+.tree {
+  display: flex;
+  flex-direction: column;
 }

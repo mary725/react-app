@@ -29,7 +29,9 @@ class TodoProfilePage extends Component {
         return (
             <div className="todo-profile-page">
                 <div className="tree">
-                    <Tree data={categoriesTree} component={TodoProfileTreeItem} />
+                    <Tree
+                        data={categoriesTree}
+                        itemComponent={TodoProfileTreeItem} />
                 </div>
                 <div className="tree-content">
                     <div className='action-panel'>

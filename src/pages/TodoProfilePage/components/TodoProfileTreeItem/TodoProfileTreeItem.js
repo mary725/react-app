@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ContentReply from 'react-material-icons/icons/content/reply';
 
 import './TodoProfileTreeItem.scss';
 
 const TodoProfileTreeItem = (props) => {
-    const { categoryName } = props;
+    const { data: { categoryName } } = props;
 
     return (
         <div className="todo-profile-tree-item">
@@ -16,6 +16,12 @@ const TodoProfileTreeItem = (props) => {
             </div>
         </div>
     );
-}
+};
+
+TodoProfileTreeItem.propTypes = {
+    data: PropTypes.shape({
+        categoryName: PropTypes.string
+    })
+};
 
 export default TodoProfileTreeItem;
