@@ -1,83 +1,45 @@
 import _ from 'lodash';
 
+import { deleteCategoryFromStructure } from './utils';
 import {
     ADD_CATEGORY,
     DELETE_CATEGORY,
-    EDIT_CATEGORY
+    EDIT_CATEGORY,
+    GET_CATEGORIES_ASYNC_SUCCESS
 } from './actions';
 
-const initialState = [
-    {
-        id: _.uniqueId(),
-        categoryName: "Category 1",
-        childrenList: [
-            {
-                id: _.uniqueId(),
-                categoryName: "Category 1.1"
-            },
-            {
-                id: _.uniqueId(),
-                categoryName: "Category 1.2"
-            }
-        ]
-    },
-    {
-        id: _.uniqueId(),
-        categoryName: "Category 2"
-    }
-];
-
-const getNodeById = (tree, id) => { // todo
-    const array = _.isArray(tree) ? tree : [tree];
-
-    while (array.length) {
-        const currentElement = array.shift();
-
-        if (currentElement.id === id) {
-            return currentElement;
-        }
-        array.push(...currentElement.children);
-    }
-};
-/*
-const deleteNodeById = (tree, id) => {
-    const array = _.isArray(tree) ? tree : [tree];
-
-    while (array.length) {
-        const currentElement = array.shift();
-
-        if (currentElement.id === id) {
-            return currentElement;
-        }
-        array.push(...currentElement.children);
-    }
-
-    return tree;
-};
-*/
-const addNodeByParentId = (tree, item, parentId) => {
-    let array = [];
-    if (parentId) {
-        const parent = getNodeById(tree, parentId);
-        if (!parent.children) {
-            parent.children = [];
-        }
-        array = parent.children;
-    } else if (_.isArray(tree)) {
-        array = tree;
-    }
-    array.push(item);
-    return tree;
-};
-
-export default function categoriesTree(state = initialState, action) {
+export default function categoriesTree(state = {}, action) {
     switch (action.type) {
+        case GET_CATEGORIES_ASYNC_SUCCESS: {
+            return action.payload.data;
+        }
         case ADD_CATEGORY: {
-            action.payload.item.id = _.uniqueId(); // todo
-            return addNodeByParentId(_.cloneDeep(state), action.payload.item, action.payload.parentId);
+            const id = _.uniqueId();
+            let newState = { ...state };
+
+            if (action.payload.parentId) {
+                newState = {
+                    ...state,
+                    parentId: {
+                        ...state.parentId,
+                        childrenList: [...state.parentId.childrenList, action.payload.item]
+                    }
+                };
+            }
+            newState[id] = action.payload.item;
+            return newState;
+        }
+        case EDIT_CATEGORY: {
+            return {
+                ...state,
+                [action.payload.id]: {
+                    ...state[action.payload.id],
+                    categoryName: action.payload.categoryName
+                }
+            };
         }
         case DELETE_CATEGORY: {
-            return state; //deleteNodeById(_.cloneDeep(state), action.payload.item.id);
+            return deleteCategoryFromStructure(state, action.payload.id);
         }
         default:
             return state;

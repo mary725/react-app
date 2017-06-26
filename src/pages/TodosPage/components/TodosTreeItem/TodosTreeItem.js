@@ -1,35 +1,61 @@
-import React, { PropTypes } from 'react';
-import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
-import ContentAddCircleOutline from 'react-material-icons/icons/content/add-circle-outline';
-import ContentClear from 'react-material-icons/icons/content/clear';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import autobind from 'autobind-decorator';
+import _ from 'lodash';
 
-import './TodosTreeItem.scss';
+import { deleteCategory, editCategory, addCategory } from '../../../../state/categoriesTree';
+import { showCategoryModal } from '../../../../state/modal';
+import TodosTreeItemView from './components/TodosTreeItemView';
 
-const TodosTreeItem = (props) => {
-    const { data: { categoryName, id } } = props;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        deleteCategory,
+        editCategory,
+        addCategory,
+        showCategoryModal
+    }, dispatch);
+}
 
-    return (
-        <div className="todos-tree-item">
-            <div className="todos-tree-item-name">
-                <span>{categoryName}</span>
-                <EditorModeEdit className="icon icon-edit" />
-            </div>
-            <div className="todos-tree-item-actions">
-                <ContentClear
-                    className="icon"/>
-                <ContentAddCircleOutline className="icon" />
-            </div>
-        </div>
-    );
-};
+@connect(null, mapDispatchToProps)
+@autobind
+class TodosTreeItem extends Component {
+    static propTypes = {
+        deleteCategory: PropTypes.func,
+        editCategory: PropTypes.func,
+        addCategory: PropTypes.func,
+        showCategoryModal: PropTypes.func
+    };
 
-TodosTreeItem.propTypes = {
-    data: PropTypes.shape({
-        categoryName: PropTypes.string
-    }),
-    todosActions: PropTypes.shape({
-        deleteTodo: PropTypes.func.isRequired
-    })
-};
+    onDeleteCategoryClick() {
+        const { deleteCategory, id } = this.props;
+
+        deleteCategory(id);
+    }
+
+    onEditCategoryClick() {
+        const { showCategoryModal, editCategory, id } = this.props;
+
+        showCategoryModal(value => { editCategory(id, value) });
+    }
+
+    onAddCategoryClick() {
+        const { showCategoryModal, addCategory } = this.props;
+
+        showCategoryModal({
+            onSave: addCategory
+        });
+    }
+
+    render() {
+        return (
+            <TodosTreeItemView
+                {...this.props}
+                onDeleteCategoryClick={this.onDeleteCategoryClick}
+                onEditCategoryClick={this.onEditCategoryClick}
+                onAddCategoryClick={this.onAddCategoryClick} />
+        );
+    }
+}
 
 export default TodosTreeItem;

@@ -1,2 +1,2 @@
-export * as todosActions from './actions';
+export * from './actions';
 export todos from './reducer';

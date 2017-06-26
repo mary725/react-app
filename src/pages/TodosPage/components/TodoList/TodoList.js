@@ -11,6 +11,10 @@ class TodoList extends Component {
       list: PropTypes.array
    };
 
+   static defaultProps = {
+      list: []
+   };
+
    render() {
       const { list } = this.props;
 

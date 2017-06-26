@@ -13,3 +13,69 @@ input {
 .icon {
   color: $color_blue !important;
 }
+
+.modal {
+  min-width: 30rem;
+  max-width: 100rem;
+
+  &-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-left {
+      margin: 0;
+      flex: 1 0 auto;
+    }
+  }
+
+  &-message {
+    margin: 2rem 0;
+  }
+
+  &-actions {
+    &:before {
+      display: block;
+      content: '';
+      height: 1px;
+      margin: 2.4rem 0.2rem;
+    }
+
+    .btn {
+      margin-right: 2rem;
+      font-size: 1.6rem;
+
+      &:not(:last-child) {
+        margin-right: 2.4rem;
+      }
+    }
+  }
+}
+
+.modal {
+  max-height: 90vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  // Prevent Chrome on Windows from adding a focus outline. For details, see
+  // https://github.com/twbs/bootstrap/pull/10951
+  outline: none;
+  min-width: 43rem;
+
+  &-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1120;
+  }
+}
+
+.ReactModal {
+  &__Body--open {
+    overflow: hidden;
+  }
+}

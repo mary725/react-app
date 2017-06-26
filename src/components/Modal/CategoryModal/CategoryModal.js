@@ -3,10 +3,10 @@ import autobind from 'autobind-decorator';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import './Modal.scss';
+import './CategoryModal.scss';
 
 @autobind
-class Modal extends Component {
+class CategoryModal extends Component {
     static propTypes = {
         btnLabel: PropTypes.string.isRequired,
         hint: PropTypes.string,
@@ -23,7 +23,8 @@ class Modal extends Component {
         const { btnLabel, hint } = this.props;
 
         return (
-            <div className="input-with-button">
+            <div className="category-modal">
+                qweqweqweqwe
                 <TextField
                     className="text-field"
                     hintText={hint}
@@ -37,4 +38,4 @@ class Modal extends Component {
     };
 }
 
-export default Modal;
+export default CategoryModal;

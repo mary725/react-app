@@ -1,21 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Header from '../../components/Header';
-import appRoutes from '../../App.route';
+import LayoutView from './components/LayoutView';
+import { getCategories, addCategory } from '../../state/categoriesTree';
+import { getTodos } from '../../state/todos';
 
-import './Layout.scss';
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        getCategories,
+        getTodos,
+        addCategory
+    }, dispatch);
+}
 
+@connect(null, mapDispatchToProps)
 class Layout extends Component {
-  render() {
-    return (
-        <div className="layout">
-            <Header />
-            <div className="content">
-                { appRoutes }
-            </div>
-        </div>
-    );
-  }
+    static propTypes = {
+        getTodos: PropTypes.func,
+        getCategories: PropTypes.func,
+        addCategory: PropTypes.func,
+        rootCategoryIds: PropTypes.array
+    };
+
+    componentDidMount() {
+        const { getCategories, getTodos } = this.props;
+
+        getCategories && getCategories();
+        getTodos && getTodos();
+    }
+
+    render() {
+        return (
+            <LayoutView {...this.props}/>
+        );
+    }
 }
 
 export default Layout;

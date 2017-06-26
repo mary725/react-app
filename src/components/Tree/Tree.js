@@ -1,41 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-import autobind from 'autobind-decorator';
-import { mapProps } from 'recompose';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 
-import TreeNode from './components/TreeNode';
+import { getRootCategoryIds } from '../../state/categoriesTree/selectors';
+import TreeView from './components/TreeView';
 
-import './Tree.scss';
-
-@mapProps(props => {
-    const { data = [] } = props;
-
+function mapStateToProps(state) {
     return {
-        ...props,
-        data: _.isArray(data)
-            ? data
-            : [data]
+        ...state,
+        rootCategoryIds: getRootCategoryIds(state)
     };
-})
-@autobind
+}
+
+@connect(mapStateToProps)
 class Tree extends Component {
     static propTypes = {
-        data: PropTypes.array,
-        itemComponent: PropTypes.func
+        rootCategoryIds: PropTypes.array
     };
 
     render() {
-        const { data, itemComponent } = this.props;
-
         return (
-            <div className='tree'>
-                { data.map((item) => (
-                    <TreeNode
-                        key={item.id.toString()}
-                        data={item}
-                        itemComponent={itemComponent} />
-                    )) }
-            </div>
+            <TreeView {...this.props}/>
         );
     }
 }

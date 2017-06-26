@@ -1,2 +1,2 @@
-export * as categoriesTreeActions from './actions';
+export * from './actions';
 export categoriesTree from './reducer';

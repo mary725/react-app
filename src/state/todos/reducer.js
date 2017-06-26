@@ -1,26 +1,13 @@
-const initialState = {
-    1: [
-        {
-            id: 1,
-            title: 'Task 1',
-            isDone: true,
-            description: '11111111111111'
-        },
-        {
-            id: 2,
-            title: 'Task 2',
-            isDone: false,
-            description: '11111111111111'
-        },
-        {
-            id: 3,
-            title: 'Task 3',
-            isDone: false,
-            description: '11111111111111'
-        }
-    ]
-};
+import {
+    GET_TODOS_ASYNC_SUCCESS
+} from './actions';
 
-export default function todos(state = initialState) {
-    return state;
+export default function todos(state = {}, action) {
+    switch (action.type) {
+        case GET_TODOS_ASYNC_SUCCESS: {
+            return action.payload.data;
+        }
+        default:
+            return state;
+    }
 };
