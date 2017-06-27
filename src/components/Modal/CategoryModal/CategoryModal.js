@@ -10,13 +10,15 @@ class CategoryModal extends Component {
     static propTypes = {
         btnLabel: PropTypes.string.isRequired,
         hint: PropTypes.string,
-        onHandleBtnClick: PropTypes.func.isRequired
+        onSave: PropTypes.func.isRequired,
+        hideModal: PropTypes.func.isRequired
     };
 
     onBtnClick() {
-        const { onHandleBtnClick } = this.props;
-        onHandleBtnClick(this.textField.input.value);
-        this.textField.input.value = null; // todo
+        const { onSave, hideModal } = this.props;
+
+        onSave(this.textField.input.value);
+        hideModal();
     }
 
     render = () => {
@@ -24,8 +26,8 @@ class CategoryModal extends Component {
 
         return (
             <div className="category-modal">
-                qweqweqweqwe
                 <TextField
+                    id="category-name"
                     className="text-field"
                     hintText={hint}
                     ref={(textField) => this.textField = textField }/>

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
-import _ from 'lodash';
 
 import { deleteCategory, editCategory, addCategory } from '../../../../state/categoriesTree';
 import { showCategoryModal } from '../../../../state/modal';
@@ -40,11 +39,9 @@ class TodosTreeItem extends Component {
     }
 
     onAddCategoryClick() {
-        const { showCategoryModal, addCategory } = this.props;
+        const { showCategoryModal, addCategory, id } = this.props;
 
-        showCategoryModal({
-            onSave: addCategory
-        });
+        showCategoryModal(value => { addCategory(value, id) });
     }
 
     render() {

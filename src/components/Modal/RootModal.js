@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
 import Modal from 'react-modal';
 import { getContext } from 'recompose';
+import ContentClear from 'react-material-icons/icons/content/clear';
 
 import { hideModal } from '../../state/modal';
 
@@ -57,10 +58,11 @@ class RootModal extends Component {
                     overlayClassName='modal-overlay'>
                     <div className='modal-header'>
                         <h2 className='modal-header-left'>
-                            1111111111111111111111
                             {title}
                         </h2>
-                        <i onClick={hideModal} className='font-icon font-icon-clear close'/>
+                        <ContentClear
+                            className="icon"
+                            onClick={hideModal}/>
                     </div>
                     { SpecificModal && <SpecificModal {...params} hideModal={hideModal}/> }
                 </Modal>

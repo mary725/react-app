@@ -20,9 +20,9 @@ export default function categoriesTree(state = {}, action) {
             if (action.payload.parentId) {
                 newState = {
                     ...state,
-                    parentId: {
-                        ...state.parentId,
-                        childrenList: [...state.parentId.childrenList, action.payload.item]
+                    [action.payload.parentId]: {
+                        ...state[action.payload.parentId],
+                        childrenList: [...state[action.payload.parentId].childrenList || [], id]
                     }
                 };
             }
