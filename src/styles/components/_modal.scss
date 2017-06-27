@@ -1,0 +1,38 @@
+@import '../colors';
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    min-width: 30rem;
+    max-width: 100rem;
+    display: block;
+    background-color: $color_white;
+    border-radius: 10px;
+    opacity: 1;
+
+    &-overlay {
+        position: fixed;
+        background-color: $color_grey;
+        opacity: 0.9;
+
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+    }
+
+    &-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &-left {
+            margin: 0;
+            flex: 1 0 auto;
+        }
+    }
+}
