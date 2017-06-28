@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
@@ -16,6 +17,7 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
+@injectIntl
 @connect(null, mapDispatchToProps)
 @autobind
 class TodosTreeItem extends Component {
@@ -26,6 +28,14 @@ class TodosTreeItem extends Component {
         showCategoryModal: PropTypes.func
     };
 
+    constructor(props) {
+        super(props);
+
+        const { intl: { formatMessage } } = props;
+
+        this.hintOnAddCategory = formatMessage({ id: 'todosPage.tree.enterCategoryTitleHint' });
+    }
+
     onDeleteCategoryClick() {
         const { deleteCategory, id } = this.props;
 
@@ -33,15 +43,23 @@ class TodosTreeItem extends Component {
     }
 
     onEditCategoryClick() {
-        const { showCategoryModal, editCategory, id } = this.props;
+        const { showCategoryModal, editCategory, id, data: { categoryName } } = this.props;
 
-        showCategoryModal(value => { editCategory(id, value) });
+        showCategoryModal({
+            onSave: value => { editCategory(id, value) },
+            value: categoryName,
+            titleKey: 'todosPage.modal.titleEditCategory'
+        });
     }
 
     onAddCategoryClick() {
         const { showCategoryModal, addCategory, id } = this.props;
 
-        showCategoryModal(value => { addCategory(value, id) });
+        showCategoryModal({
+            onSave: value => { addCategory(value, id) },
+            hint: this.hintOnAddCategory,
+            titleKey: 'todosPage.modal.titleNewCategory'
+        });
     }
 
     render() {

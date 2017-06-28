@@ -2,5 +2,8 @@
   "todosPage.filter.showDone": "Show done",
   "todosPage.actionPanel.enterCategoryTitleHint": "Enter category title",
   "todosPage.actionPanel.enterTaskTitleHint": "Enter task title",
-  "todosPage.filter.searchHint": "Search"
+  "todosPage.filter.searchHint": "Search",
+  "todosPage.tree.enterCategoryTitleHint": "Enter category title",
+  "todosPage.modal.titleNewCategory": "New Category",
+  "todosPage.modal.titleEditCategory": "Edit Category"
 }

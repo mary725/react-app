@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import TodoList from './components/TodoList';
 import { todosActions } from '../../state/todos';
+import { getTodosByCategoryId } from '../../state/todos/selectors';
 
 import './TodosPage.scss';
 
@@ -23,10 +24,10 @@ class TodosPage extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
     return {
         ...state,
-        todos: state.todos['1']
+        todos: getTodosByCategoryId(state, props.match.params.categoryId)
     };
 }
 

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { withContext } from 'recompose';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import store from './context/store';
 import * as locales from './locales';
@@ -27,7 +28,9 @@ class App extends Component {
                 <MuiThemeProvider>
                     <Provider store={store}>
                         <div>
-                            <Layout />
+                            <Router>
+                                <Route path='/' component={Layout}></Route>
+                            </Router>
                             <RootModal />
                         </div>
                     </Provider>

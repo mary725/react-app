@@ -1,5 +1,6 @@
 {
     "common.button.add": "Add",
     "common.button.saveChanges": "Save changes",
-    "common.button.cancel": "Cancel"
+    "common.button.cancel": "Cancel",
+    "common.button.save": "Save"
 }

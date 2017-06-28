@@ -9,8 +9,6 @@ import ContentClear from 'react-material-icons/icons/content/clear';
 
 import { hideModal } from '../../state/modal';
 
-import './RootModal.scss';
-
 const mapStateToProps = (state) => {
     return { ...state.modal };
 };

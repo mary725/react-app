@@ -9,13 +9,13 @@ export function hideModal() {
     };
 };
 
-export function showCategoryModal(onSave) {
+export function showCategoryModal(params) {
     return {
         type: SHOW_CATEGORY_MODAL,
         payload: {
             type: modalTypes.CATEGORY_MODAL,
             params: {
-                onSave
+                ...params
             }
         }
     };

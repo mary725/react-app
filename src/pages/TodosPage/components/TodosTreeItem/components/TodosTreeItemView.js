@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
 import ContentAddCircleOutline from 'react-material-icons/icons/content/add-circle-outline';
 import ContentClear from 'react-material-icons/icons/content/clear';
@@ -6,12 +7,12 @@ import ContentClear from 'react-material-icons/icons/content/clear';
 import '../TodosTreeItem.scss';
 
 const TodosTreeItem = (props) => {
-    const { data: { categoryName }, onDeleteCategoryClick, onEditCategoryClick, onAddCategoryClick } = props;
+    const { data: { categoryName }, id, onDeleteCategoryClick, onEditCategoryClick, onAddCategoryClick } = props;
 
     return (
         <div className="todos-tree-item">
             <div className="todos-tree-item-name">
-                <span>{categoryName}</span>
+                <Link to={`/todos/${id}`}>{categoryName}</Link>
                 <EditorModeEdit
                     className="icon icon-edit"
                     onClick={onEditCategoryClick}/>
@@ -32,6 +33,7 @@ TodosTreeItem.propTypes = {
     data: PropTypes.shape({
          categoryName: PropTypes.string
     }),
+    id: PropTypes.string,
     onDeleteCategoryClick: PropTypes.func,
     onEditCategoryClick: PropTypes.func,
     onAddCategoryClick: PropTypes.func

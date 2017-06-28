@@ -27,3 +27,10 @@ export const getDoneTodosCount = createSelector(
     count => count
 );
 
+export const getTodosByCategoryId = createSelector(
+    (state, categoryId) => {
+        return _.get(state, `todos.${categoryId}`, []);
+    },
+    todos => todos
+);
+

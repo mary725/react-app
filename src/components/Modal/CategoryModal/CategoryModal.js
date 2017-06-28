@@ -1,18 +1,31 @@
 import React, { Component, PropTypes } from 'react';
+import { injectIntl } from 'react-intl';
 import autobind from 'autobind-decorator';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import './CategoryModal.scss';
 
+@injectIntl
 @autobind
 class CategoryModal extends Component {
     static propTypes = {
-        btnLabel: PropTypes.string.isRequired,
+        btnPrimaryLabel: PropTypes.string,
+        btnSecondaryLabel: PropTypes.string,
         hint: PropTypes.string,
         onSave: PropTypes.func.isRequired,
-        hideModal: PropTypes.func.isRequired
+        hideModal: PropTypes.func.isRequired,
+        value: PropTypes.string
     };
+
+    constructor(props) {
+        super(props);
+
+        const { intl: { formatMessage } } = props;
+
+        this.btnSaveDefaultLabel = formatMessage({ id: 'common.button.save' });
+        this.btnCancelDefaultLabel = formatMessage({ id: 'common.button.cancel' });
+    }
 
     onBtnClick() {
         const { onSave, hideModal } = this.props;
@@ -22,7 +35,7 @@ class CategoryModal extends Component {
     }
 
     render = () => {
-        const { btnLabel, hint } = this.props;
+        const { btnPrimaryLabel, btnSecondaryLabel, hint, value, hideModal } = this.props;
 
         return (
             <div className="category-modal">
@@ -30,11 +43,23 @@ class CategoryModal extends Component {
                     id="category-name"
                     className="text-field"
                     hintText={hint}
-                    ref={(textField) => this.textField = textField }/>
-                <RaisedButton
-                    label={btnLabel}
-                    primary
-                    onClick={this.onBtnClick}/>
+                    ref={(textField) => {
+                        this.textField = textField;
+                        if (this.textField && value) {
+                            this.textField.input.value = value;
+                        }
+                    } }/>
+                <div className='actions'>
+                    <RaisedButton
+                        label={btnPrimaryLabel || this.btnSaveDefaultLabel}
+                        primary
+                        className='btn'
+                        onClick={this.onBtnClick}/>
+                    <RaisedButton
+                        label={btnSecondaryLabel || this.btnCancelDefaultLabel}
+                        className='btn'
+                        onClick={hideModal}/>
+                </div>
             </div>
         );
     };
