@@ -8,7 +8,7 @@ import InputWithButton from '../../../components/InputWithButton/index';
 import TodosTreeItem from '../../TodosPage/components/TodosTreeItem/index';
 import TodosProgressBar from '../../../components/TodosProgressBar/index';
 import Header from '../../../components/Header/index';
-import appRoutes from '../../../App.route';
+import { pageRoutes } from '../../../App.route';
 
 import '../Layout.scss';
 
@@ -59,7 +59,7 @@ class LayoutView extends Component {
                             <Tree itemComponent={TodosTreeItem}/>
                         </div>
                         <div className="page-content">
-                            { appRoutes }
+                            { pageRoutes }
                         </div>
                     </div>
                 </div>

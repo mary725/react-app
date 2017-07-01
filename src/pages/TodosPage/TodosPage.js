@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,17 +9,36 @@ import { getTodosByCategoryId } from '../../state/todos/selectors';
 
 import './TodosPage.scss';
 
+@injectIntl
 class TodosPage extends Component {
     static propTypes = {
-        todos: PropTypes.object
+        todos: PropTypes.array,
+        intl: intlShape
     };
+
+    static defaultProps = {
+        todos: []
+    };
+
+    constructor(props) {
+        super(props);
+
+        const formatMessage = props.intl.formatMessage;
+
+        this.noDataMessage = formatMessage({ id: 'todosPage.todos.noDataMessage' });
+    }
 
     render() {
         const { todos } = this.props;
 
         return (
             <div className="todos-page">
-                <TodoList list={todos} />
+                { todos.length
+                    ? (<TodoList
+                        {...this.props}/>)
+                    : (<div>
+                        {this.noDataMessage}
+                        </div>)}
             </div>
         );
     }

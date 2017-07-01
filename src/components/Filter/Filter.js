@@ -1,46 +1,35 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl } from 'react-intl';
-import cn from 'classnames';
-import Checkbox from 'material-ui/Checkbox';
-import ContentClear from 'react-material-icons/icons/content/clear';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import './Filter.scss';
+import { getFilterParams } from '../../state/filter/selectors';
+import { changeFilterParams } from '../../state/filter/actions';
+import FilterView from './components/FilterView';
 
-@injectIntl
-class Filter extends Component {
+function mapStateToProps(state) {
+    return {
+        ...state,
+        params: getFilterParams(state)
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        changeFilterParams
+    }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+class Tree extends Component {
     static propTypes = {
-        className: PropTypes.string,
-        onChangeCheckboxValue: PropTypes.func,
-        onSearch: PropTypes.func
+        params: PropTypes.object
     };
 
-    constructor(props) {
-        super(props);
-
-        const formatMessage = props.intl.formatMessage;
-
-        this.showDoneMessage = formatMessage({ id: 'todosPage.filter.showDone' });
-        this.searchHint = formatMessage({ id: 'todosPage.filter.searchHint' });
-        this.state = {};
-    }
-
     render() {
-        const { className } = this.props;
-        const classes = cn('filter', className);
-
         return (
-            <div className={classes}>
-                <Checkbox
-                    label={this.showDoneMessage}
-                    className='show-done-chb' />
-                <div className='search-block'>
-                    <input className='search-input'
-                        placeholder={this.searchHint}/>
-                    <ContentClear className='icon' />
-                </div>
-            </div>
+            <FilterView {...this.props}/>
         );
     }
 }
 
-export default Filter;
+export default Tree;

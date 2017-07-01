@@ -9,11 +9,12 @@ import './TodoItem.scss';
 class TodoItem extends Component {
     static propTypes = {
         item: PropTypes.object,
-        onChangeStatus: PropTypes.func
+        onChangeStatus: PropTypes.func,
+        onEdit: PropTypes.func
     };
 
     render() {
-        const { item = {}, onChangeStatus } = this.props;
+        const { item = {}, onChangeStatus, onEdit } = this.props;
 
         return (
             <div className="todo-item">
@@ -21,11 +22,13 @@ class TodoItem extends Component {
                     <Checkbox
                         className='chb'
                         checked={item.isDone}
-                        onCheck={() => onChangeStatus && onChangeStatus(item.id)}/>
+                        onCheck={(event, isChecked) => onChangeStatus && onChangeStatus(item.id, isChecked)}/>
                     <span className='title'>{item.title}</span>
                 </div>
                 <div>
-                    <EditorModeEdit className='icon'/>
+                    <EditorModeEdit
+                        className='icon'
+                        onClick={() => onEdit && onEdit(item.id)}/>
                 </div>
             </div>
         );

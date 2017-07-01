@@ -5,7 +5,6 @@ import TreeNode from '../../TreeNode/index';
 import { getCategoryById } from '../../../state/categoriesTree/selectors';
 
 const mapStateToProps = (state, props) => {
-    console.log(props.id);
     return {
         ...state,
         data: getCategoryById(state, props.id)
@@ -15,7 +14,7 @@ const mapStateToProps = (state, props) => {
 const CategoryTreeNode = connect(mapStateToProps)(TreeNode);
 
 CategoryTreeNode.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.string,
     data: PropTypes.object,
     itemComponent: PropTypes.func
 };

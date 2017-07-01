@@ -1,11 +1,14 @@
 export const ADD_TODO = 'ADD_TODO';
-export const EDIT_TODO = 'EDIT_TODO';
-export const FILTER_TODOS = 'FILTER_TODOS';
 
 export const GET_TODOS_ASYNC = 'GET_TODOS_ASYNC';
 export const GET_TODOS_ASYNC_REQUEST = 'GET_TODOS_ASYNC_REQUEST';
 export const GET_TODOS_ASYNC_SUCCESS = 'GET_TODOS_ASYNC_SUCCESS';
 export const GET_TODOS_ASYNC_ERROR = 'GET_TODOS_ASYNC_ERROR';
+
+export const EDIT_TODO_ASYNC = 'EDIT_TODO_ASYNC';
+export const EDIT_TODO_ASYNC_REQUEST = 'EDIT_TODO_ASYNC_REQUEST';
+export const EDIT_TODO_ASYNC_SUCCESS = 'EDIT_TODO_ASYNC_SUCCESS';
+export const EDIT_TODO_ASYNC_ERROR = 'EDIT_TODO_ASYNC_ERROR';
 
 export function getTodos() {
     return {
@@ -22,21 +25,12 @@ export function addTodo(item) {
     };
 };
 
-export function editTodo(item) {
+export function editTodo(item, categoryId) {
     return {
-        type: EDIT_TODO,
+        type: EDIT_TODO_ASYNC,
         payload: {
-            item
-        }
-    };
-};
-
-export function filterTodos(isDone, searchString) {
-    return {
-        type: FILTER_TODOS,
-        payload: {
-            isDone,
-            searchString
+            item,
+            categoryId
         }
     };
 };

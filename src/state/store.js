@@ -2,11 +2,27 @@ import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 
 import rootReducer from './reducers';
-import { getCategoriesMiddleware } from '../state/categoriesTree/middlewares'; // todo move
-import { getTodosMiddleware } from '../state/todos/middlewares';
+import {
+    getCategoriesMiddleware,
+    addCategoryMiddleware,
+    deleteCategoryMiddleware,
+    editCategoryMiddleware
+} from '../state/categoriesTree/middlewares';
+import {
+    getTodosMiddleware,
+    updateTodoMiddleware
+} from '../state/todos/middlewares';
 
 export default function configureStore(initialState) {
-    const middleware = [createLogger(), getCategoriesMiddleware, getTodosMiddleware];
+    const middleware = [
+        createLogger(),
+        getCategoriesMiddleware,
+        addCategoryMiddleware,
+        deleteCategoryMiddleware,
+        editCategoryMiddleware,
+        getTodosMiddleware,
+        updateTodoMiddleware
+    ];
     const store = createStore(rootReducer, initialState, applyMiddleware(...middleware))
 
     if (module.hot) {

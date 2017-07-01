@@ -24,7 +24,7 @@ class TreeNode extends Component {
 		this.state = {};
 	}
 
-	onExpand() { // todo
+	onExpand() {
 		this.setState({ isExpanded: !this.state.isExpanded });
 	}
 

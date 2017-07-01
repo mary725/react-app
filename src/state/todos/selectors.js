@@ -1,35 +1,56 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 
+import { getFilterParams } from '../filter/selectors';
+
+const getTodos = createSelector(
+    (state) => _.get(state, 'todos'),
+    todos => todos
+);
+
 export const getTodosCount = createSelector(
-    (state) => {
+    getTodos,
+    (todos) => {
         let count = 0;
 
-        _.forOwn(state.todos, categoryTodos => {
+        _.forOwn(todos, categoryTodos => {
             count += _.size(categoryTodos);
         });
 
         return count;
-    },
-    count => count
+    }
 );
 
 export const getDoneTodosCount = createSelector(
-    (state) => {
+    getTodos,
+    (todos) => {
         let count = 0;
 
-        _.forOwn(state.todos, categoryTodos => {
+        _.forOwn(todos, categoryTodos => {
             count += _.size(_.filter(categoryTodos, todo => todo.isDone));
         });
 
         return count;
-    },
-    count => count
+    }
 );
 
 export const getTodosByCategoryId = createSelector(
     (state, categoryId) => {
-        return _.get(state, `todos.${categoryId}`, []);
+        const filterParams = getFilterParams(state);
+        const todosByCategory = _.get(state, `todos.${categoryId}`, []);
+
+        return _.filter(todosByCategory, todo => {
+            let isShow = true;
+
+            if (filterParams.isDone) {
+                isShow = isShow && todo.isDone === filterParams.isDone;
+            }
+            if (filterParams.searchString && filterParams.searchString.length) {
+                isShow = isShow && _.includes(todo.title.toLowerCase(), filterParams.searchString.toLowerCase());
+            }
+
+            return isShow;
+        });
     },
     todos => todos
 );
