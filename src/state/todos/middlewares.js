@@ -3,6 +3,10 @@ import {
     GET_TODOS_ASYNC_REQUEST,
     GET_TODOS_ASYNC_SUCCESS,
     GET_TODOS_ASYNC_ERROR,
+    ADD_TODO_ASYNC,
+    ADD_TODO_ASYNC_REQUEST,
+    ADD_TODO_ASYNC_SUCCESS,
+    ADD_TODO_ASYNC_ERROR,
     EDIT_TODO_ASYNC,
     EDIT_TODO_ASYNC_REQUEST,
     EDIT_TODO_ASYNC_SUCCESS,
@@ -31,6 +35,35 @@ export const getTodosMiddleware = store => next => action => {
                 error => {
                     dispatch({
                         type: GET_TODOS_ASYNC_ERROR,
+                        payload: error.message
+                    });
+                });
+    }
+
+    next(action);
+};
+
+export const addTodoMiddleware = store => next => action => {
+    if (action.type === ADD_TODO_ASYNC) {
+        const { dispatch } = store;
+
+        dispatch({
+            type: ADD_TODO_ASYNC_REQUEST
+        });
+
+        api.getTodos()
+            .then(
+                () => {
+                    dispatch({
+                        type: ADD_TODO_ASYNC_SUCCESS,
+                        payload: {
+                            ...action.payload
+                        }
+                    });
+                },
+                error => {
+                    dispatch({
+                        type: ADD_TODO_ASYNC_ERROR,
                         payload: error.message
                     });
                 });

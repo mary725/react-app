@@ -55,3 +55,13 @@ export const getTodosByCategoryId = createSelector(
     todos => todos
 );
 
+export const editTodo = createSelector(
+    (state, categoryId, todoId) => {
+        const todos = getTodos(state);
+        const todosByCategory = todos[categoryId];
+
+        return _.find(todosByCategory, todo => todo.id === todoId);
+    },
+    todo => todo
+);
+

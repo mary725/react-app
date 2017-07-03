@@ -57,11 +57,11 @@ export const addCategoryMiddleware = store => next => action => {
 
         api.getCategories()
             .then(
-                (data) => {
+                () => {
                     dispatch({
                         type: ADD_CATEGORY_ASYNC_SUCCESS,
                         payload: {
-                            data
+                            ...action.payload
                         }
                     });
                 },

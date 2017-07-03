@@ -10,6 +10,7 @@ import {
 } from '../state/categoriesTree/middlewares';
 import {
     getTodosMiddleware,
+    addTodoMiddleware,
     updateTodoMiddleware
 } from '../state/todos/middlewares';
 
@@ -21,6 +22,7 @@ export default function configureStore(initialState) {
         deleteCategoryMiddleware,
         editCategoryMiddleware,
         getTodosMiddleware,
+        addTodoMiddleware,
         updateTodoMiddleware
     ];
     const store = createStore(rootReducer, initialState, applyMiddleware(...middleware))

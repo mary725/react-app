@@ -1,59 +1,66 @@
-import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import autobind from 'autobind-decorator';
+import { reduxForm, initialize, getFormValues, reset } from 'redux-form';
 
-import Tree from '../../components/Tree';
-import TodoProfileTreeItem from './components/TodoProfileTreeItem';
+import { getTodoById } from '../../state/todos/selectors';
+import { editTodo } from '../../state/todos';
+import TodoProfilePageView from './components/TodoProfilePageView';
 
-import './TodoProfilePage.scss';
+const todoProfileFormName = 'todoProfileFormName';
 
-@injectIntl
+const mapStateToProps = (state, props) => {
+    return {
+        data: getTodoById(state,
+                            props.match.params.categoryId,
+                            props.match.params.todoId),
+        formValues: getFormValues(todoProfileFormName)(state)
+    };
+};
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        editTodo,
+        initialize: (initialValues) => {
+            dispatch(initialize(todoProfileFormName, initialValues));
+        },
+        reset
+    }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+@reduxForm({
+    form: todoProfileFormName
+})
+@autobind
 class TodoProfilePage extends Component {
-    constructor(props) {
-        super(props);
+    static propTypes = {
+        data: PropTypes.object,
+        editTodo: PropTypes.func.isRequired
+    };
 
-        const formatMessage = props.intl.formatMessage;
+    componentDidMount() {
+        this.props.initialize(this.getInitialValues());
+    }
 
-        this.btnSaveChanges = formatMessage({ id: 'common.button.saveChanges' });
-        this.btnCancel = formatMessage({ id: 'common.button.cancel' });
-        this.titleHint = formatMessage({ id: 'todoProfile.titleHint' });
-        this.showDoneMessage = formatMessage({ id: 'todoProfile.showDone' });
-        this.descriptionHint = formatMessage({ id: 'todoProfile.descriptionHint' });
+    getInitialValues() {
+        const view = {};
+
+        return view;
+    }
+
+    onEdit() {
+        const { editTodo, match: { params: { categoryId, todoId } } } = this.props;
+
+        editTodo(categoryId, todoId);
     }
 
     render() {
-        const { categoriesTree } = this.props;
-
         return (
-            <div className="todo-profile-page">
-                <div className="tree">
-                    <Tree
-                        data={categoriesTree}
-                        itemComponent={TodoProfileTreeItem} />
-                </div>
-                <div className="tree-content">
-                    <div className='action-panel'>
-                        <RaisedButton
-                            className='btn'
-                            label={this.btnSaveChanges}
-                            primary />
-                        <RaisedButton
-                            className='btn'
-                            label={this.btnCancel} />
-                    </div>
-                    <TextField
-                        className="title"
-                        hintText={this.titleHint}/>
-                    <Checkbox
-                        label={this.showDoneMessage}
-                        className='chb-done' />
-                    <textarea
-                        className='description'
-                        placeholder={this.descriptionHint}></textarea>
-                </div>
-            </div>
+            <TodoProfilePageView
+                onSave={this.onEdit}
+                {...this.props}/>
         );
     }
 }

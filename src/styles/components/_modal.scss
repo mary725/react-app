@@ -15,9 +15,7 @@
 
     &-overlay {
         position: fixed;
-        background-color: $color_grey;
-        opacity: 0.9;
-
+        background: rgba($color_black,0.5);
         top: 0;
         left: 0;
         right: 0;

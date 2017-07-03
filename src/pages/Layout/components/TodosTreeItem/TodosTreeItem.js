@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
 
-import { deleteCategory, editCategory, addCategory } from '../../../../state/categoriesTree';
-import { showCategoryModal } from '../../../../state/modal';
+import { deleteCategory, editCategory, addCategory } from '../../../../state/categoriesTree/index';
+import { showCategoryModal } from '../../../../state/modal/index';
 import TodosTreeItemView from './components/TodosTreeItemView';
 
 function mapDispatchToProps(dispatch) {

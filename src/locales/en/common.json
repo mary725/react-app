@@ -2,5 +2,6 @@
     "common.button.add": "Add",
     "common.button.saveChanges": "Save changes",
     "common.button.cancel": "Cancel",
-    "common.button.save": "Save"
+    "common.button.save": "Save",
+    "common.notFoundMessage": "Page not found."
 }
