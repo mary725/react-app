@@ -1,66 +1,52 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
-import HardwareKeyboardArrowRight from 'react-material-icons/icons/hardware/keyboard-arrow-right';
-import HardwareKeyboardArrowDown from 'react-material-icons/icons/hardware/keyboard-arrow-down';
+import { connect } from 'react-redux';
 
-import CategoryTreeNode from '../Tree/components/CategoryTreeNode';
+import TreeNodeView from './components/TreeNodeView';
 
-import './TreeNode.scss';
+const mapStateToProps = (state, props) => {
+    const { id, getDataById } = props;
 
+    return {
+        ...state,
+        data: getDataById(state, id)
+    };
+};
+
+@connect(mapStateToProps)
 @autobind
 class TreeNode extends Component {
-	static propTypes = {
-		data: PropTypes.shape({
-			name: PropTypes.string,
-			childrenList: PropTypes.array
-		}),
-		itemComponent: PropTypes.func,
-        customTreeNode: PropTypes.func
-	};
+    static propTypes = {
+        id: PropTypes.string,
+        data: PropTypes.object,
+        itemComponent: PropTypes.func,
+        getDataById: PropTypes.func
+    };
 
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {};
-	}
+        this.state = {};
+    }
 
-	onExpand() {
-		this.setState({ isExpanded: !this.state.isExpanded });
-	}
+    onExpand() {
+        this.setState({ isExpanded: !this.state.isExpanded });
+    }
 
-	render() {
-		const { data: { name, childrenList = [] } = {}, itemComponent, customTreeNode = CategoryTreeNode } = this.props;
-		const isExpanded = this.state.isExpanded;
-		const Component = itemComponent;
-		const TreeNodeComponent = customTreeNode ? customTreeNode : TreeNode;
-		const expandIcon = isExpanded
-			? <HardwareKeyboardArrowDown onClick={this.onExpand} className="icon icon-arrow"/>
-			: <HardwareKeyboardArrowRight onClick={this.onExpand} className="icon icon-arrow"/>;
-		const children = childrenList.map((id) => (
-			<TreeNodeComponent
-				key={id && id.toString()}
-				id={id}
-				itemComponent={Component} />
-		));
+    render() {
+        const { getDataById } = this.props;
+        const { isExpanded = false } = this.state;
 
-		return (
-			<div className="tree-node">
-				<div className="item-wrapper">
-					{ childrenList.length > 0 &&
-							expandIcon }
-					<div className="item">
-						{ Component
-							? <Component {...this.props} />
-							: <span>{name}</span> }
-					</div>
-				</div>
-				{ isExpanded &&
-					(<div className='items-list'>
-						{children}
-					</div>) }
-			</div>
-		);
-	}
+        return (
+            <TreeNodeView
+                isExpanded={isExpanded}
+                onExpand={this.onExpand}
+                getDataById={getDataById}
+                {...this.props}/>
+        );
+    }
 }
 
 export default TreeNode;
+

@@ -1,36 +1,25 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import rootReducer from './reducers';
 import {
-    getCategoriesMiddleware,
-    addCategoryMiddleware,
-    deleteCategoryMiddleware,
-    editCategoryMiddleware
-} from '../state/categoriesTree/middlewares';
-import {
-    getTodosMiddleware,
-    addTodoMiddleware,
-    updateTodoMiddleware
-} from '../state/todos/middlewares';
+    customLoggerMiddleware
+} from '../state/utils/middlewares';
 
 export default function configureStore(initialState) {
     const middleware = [
+        thunk,
         createLogger(),
-        getCategoriesMiddleware,
-        addCategoryMiddleware,
-        deleteCategoryMiddleware,
-        editCategoryMiddleware,
-        getTodosMiddleware,
-        addTodoMiddleware,
-        updateTodoMiddleware
+        customLoggerMiddleware
     ];
-    const store = createStore(rootReducer, initialState, applyMiddleware(...middleware))
+    const store = createStore(rootReducer, initialState, applyMiddleware(...middleware));
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {
-            const nextRootReducer = require('./reducers')
-            store.replaceReducer(nextRootReducer)
+            const nextRootReducer = require('./reducers');
+
+            store.replaceReducer(nextRootReducer);
         })
     }
 

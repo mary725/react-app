@@ -5,15 +5,15 @@ import Layout from './pages/Layout';
 import TodosPage from './pages/TodosPage';
 import TodoProfilePage from './pages/TodoProfilePage';
 import NotFound from './pages/NotFound';
-
+/*
+ <Route component={NotFound}/>
+*/
 export const rootRoute = (
     <Router>
         <Switch>
             <Route
-                exact
                 path='/'
                 component={Layout}></Route>
-            <Route component={NotFound}/>
         </Switch>
     </Router>
 );

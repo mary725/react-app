@@ -11,12 +11,10 @@ export default function todos(state = {}, action) {
             return action.payload.data;
         }
         case ADD_TODO_ASYNC_SUCCESS: {
-            const id = _.uniqueId();
             const newState = { ...state };
 
-            action.payload.item.id = id;
             newState[action.payload.categoryId] = [ ...newState[action.payload.categoryId],
-                                                    newState[id] = action.payload.item];
+                                                    newState[action.payload.item.id] = action.payload.item];
             return newState;
         }
         case EDIT_TODO_ASYNC_SUCCESS: {

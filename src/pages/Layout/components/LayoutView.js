@@ -1,13 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
 import { injectIntl } from 'react-intl';
 import _ from 'lodash';
 
-import Tree from '../../../components/Tree';
+import CategoryTree from '../../../components/CategoryTree';
 import Filter from '../../../components/Filter';
 import InputWithButton from '../../../components/InputWithButton';
-import TodosTreeItem from './TodosTreeItem';
-import TodoProfileTreeItem from './TodoProfileTreeItem';
 import TodosProgressBar from '../../../components/TodosProgressBar';
 import Header from '../../../components/Header';
 import { pageRoutes } from '../../../App.route';
@@ -51,9 +50,6 @@ class LayoutView extends Component {
     render() {
         const { location: { pathname }} = this.props;
         const isProfileMode = _.includes(pathname, 'todoProfile');
-        const TreeItemComponent = isProfileMode
-                                    ? TodoProfileTreeItem
-                                    : TodosTreeItem;
 
         return (
             <div className="layout">
@@ -73,7 +69,8 @@ class LayoutView extends Component {
                     </div>
                     <div className="tree-container">
                         <div className="tree">
-                            <Tree itemComponent={TreeItemComponent}/>
+                            <CategoryTree
+                                isProfileMode={isProfileMode}/>
                         </div>
                         <div className="page-content">
                             { pageRoutes }

@@ -14,7 +14,6 @@ export default function categoriesTree(state = {}, action) {
             return action.payload.data;
         }
         case ADD_CATEGORY_ASYNC_SUCCESS: {
-            const id = _.uniqueId();
             let newState = { ...state };
 
             if (action.payload.parentId) {
@@ -22,11 +21,11 @@ export default function categoriesTree(state = {}, action) {
                     ...state,
                     [action.payload.parentId]: {
                         ...state[action.payload.parentId],
-                        childrenList: [...state[action.payload.parentId].childrenList || [], id]
+                        childrenList: [...state[action.payload.parentId].childrenList || [], action.payload.itemId]
                     }
                 };
             }
-            newState[id] = action.payload.item;
+            newState[action.payload.itemId] = action.payload.item;
             return newState;
         }
         case EDIT_CATEGORY_ASYNC_SUCCESS: {

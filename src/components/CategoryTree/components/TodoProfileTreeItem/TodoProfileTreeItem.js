@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ContentReply from 'react-material-icons/icons/content/reply';
 
 import './TodoProfileTreeItem.scss';

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
 import Checkbox from 'material-ui/Checkbox';
 import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
