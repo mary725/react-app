@@ -11,7 +11,8 @@ class TodoListView extends Component {
     static propTypes = {
         list: PropTypes.array,
         onChangeStatus: PropTypes.func,
-        onEdit: PropTypes.func
+        onEdit: PropTypes.func,
+        onDelete: PropTypes.func
     };
 
     static defaultProps = {
@@ -19,7 +20,7 @@ class TodoListView extends Component {
     };
 
     render() {
-        const { list, onChangeStatus, onEdit } = this.props;
+        const { list, onChangeStatus, onEdit, onDelete } = this.props;
 
         return (
             <div className="todo-list">
@@ -29,7 +30,8 @@ class TodoListView extends Component {
                             item={item}
                             key={item.id && item.id.toString()}
                             onChangeStatus={onChangeStatus}
-                            onEdit={onEdit}/>
+                            onEdit={onEdit}
+                            onDelete={onDelete}/>
                     ))
                 }
             </div>

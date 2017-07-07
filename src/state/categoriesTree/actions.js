@@ -1,4 +1,5 @@
 import * as api from '../../api';
+import { DELETE_TODOS_BY_CATEGORY_ID } from '../todos/actions';
 
 export const GET_CATEGORIES_ASYNC_REQUEST = 'GET_CATEGORIES_ASYNC_REQUEST';
 export const GET_CATEGORIES_ASYNC_SUCCESS = 'GET_CATEGORIES_ASYNC_SUCCESS';
@@ -76,6 +77,12 @@ export const deleteCategory = (id) => dispatch => {
             () => {
                 dispatch({
                     type: DELETE_CATEGORY_ASYNC_SUCCESS,
+                    payload: {
+                        id
+                    }
+                });
+                dispatch({
+                    type: DELETE_TODOS_BY_CATEGORY_ID,
                     payload: {
                         id
                     }

@@ -12,6 +12,12 @@ export const EDIT_TODO_ASYNC_REQUEST = 'EDIT_TODO_ASYNC_REQUEST';
 export const EDIT_TODO_ASYNC_SUCCESS = 'EDIT_TODO_ASYNC_SUCCESS';
 export const EDIT_TODO_ASYNC_ERROR = 'EDIT_TODO_ASYNC_ERROR';
 
+export const DELETE_TODO_ASYNC_REQUEST = 'DELETE_TODO_ASYNC_REQUEST';
+export const DELETE_TODO_ASYNC_SUCCESS = 'DELETE_TODO_ASYNC_SUCCESS';
+export const DELETE_TODO_ASYNC_ERROR = 'DELETE_TODO_ASYNC_ERROR';
+
+export const DELETE_TODOS_BY_CATEGORY_ID = 'DELETE_TODOS_BY_CATEGORY_ID';
+
 export const getTodos = () => dispatch => {
     dispatch({
         type: GET_TODOS_ASYNC_REQUEST
@@ -79,6 +85,30 @@ export const editTodo = (item, categoryId) => dispatch => {
             error => {
                 dispatch({
                     type: EDIT_TODO_ASYNC_ERROR,
+                    payload: error.message
+                });
+            });
+};
+
+export const deleteTodo = (todoId, categoryId) => dispatch => {
+    dispatch({
+        type: DELETE_TODO_ASYNC_REQUEST
+    });
+
+    api.deleteTodo(todoId, categoryId)
+        .then(
+            () => {
+                dispatch({
+                    type: DELETE_TODO_ASYNC_SUCCESS,
+                    payload: {
+                        todoId,
+                        categoryId
+                    }
+                });
+            },
+            error => {
+                dispatch({
+                    type: DELETE_TODO_ASYNC_ERROR,
                     payload: error.message
                 });
             });

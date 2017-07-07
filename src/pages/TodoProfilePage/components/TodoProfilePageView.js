@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import TextField from 'material-ui/TextField';
+import { Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
+
+import FormCheckBox from '../../../components/form/FormCheckBox';
+import FormInput from '../../../components/form/FormInput';
+import FormTextarea from '../../../components/form/FormTextarea';
 
 import '../TodoProfilePage.scss';
 
@@ -27,10 +30,10 @@ class TodoProfilePageView extends Component {
     }
 
     render() {
-        const { data = {}, onSave } = this.props;
+        const { onSave } = this.props;
 
         return (
-            <div className="todo-profile-page">
+            <form className="todo-profile-page">
                 <div className='profile-action-panel'>
                     <RaisedButton
                         className='btn'
@@ -41,17 +44,22 @@ class TodoProfilePageView extends Component {
                         className='btn'
                         label={this.btnCancel} />
                 </div>
-                <TextField
-                    className="title"
-                    hintText={this.titleHint}/>
-                <Checkbox
-                    checked={!!data.isDone}
+                <Field
+                    name='title'
+                    hint={this.titleHint}
+                    className='title'
+                    component={FormInput}/>
+                <Field
+                    name='isDone'
                     label={this.showDoneMessage}
-                    className='chb-done' />
-                <textarea
+                    className='chb-done'
+                    component={FormCheckBox}/>
+                <Field
+                    name='description'
+                    placeholder={this.descriptionHint}
                     className='description'
-                    placeholder={this.descriptionHint}></textarea>
-            </div>
+                    component={FormTextarea}/>
+            </form>
         );
     }
 }

@@ -1,7 +1,9 @@
 import {
     GET_TODOS_ASYNC_SUCCESS,
     ADD_TODO_ASYNC_SUCCESS,
-    EDIT_TODO_ASYNC_SUCCESS
+    EDIT_TODO_ASYNC_SUCCESS,
+    DELETE_TODO_ASYNC_SUCCESS,
+    DELETE_TODOS_BY_CATEGORY_ID
 } from './actions';
 import _ from 'lodash';
 
@@ -28,6 +30,22 @@ export default function todos(state = {}, action) {
             };
 
             todos[action.payload.categoryId] = categoryTodos;
+
+            return todos;
+        }
+        case DELETE_TODO_ASYNC_SUCCESS: {
+            let todos = {...state};
+            let categoryTodos = [...todos[action.payload.categoryId]];
+
+            _.remove(categoryTodos, todo => todo.id === action.payload.todoId);
+            todos[action.payload.categoryId] = categoryTodos;
+
+            return todos;
+        }
+        case DELETE_TODOS_BY_CATEGORY_ID: {
+            let todos = {...state};
+
+            delete todos[action.payload.id];
 
             return todos;
         }

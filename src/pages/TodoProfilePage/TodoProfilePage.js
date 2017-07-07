@@ -38,7 +38,8 @@ function mapDispatchToProps(dispatch) {
 class TodoProfilePage extends Component {
     static propTypes = {
         data: PropTypes.object,
-        editTodo: PropTypes.func.isRequired
+        editTodo: PropTypes.func.isRequired,
+        reset: PropTypes.func
     };
 
     componentDidMount() {
@@ -46,20 +47,31 @@ class TodoProfilePage extends Component {
     }
 
     getInitialValues() {
-        const view = {};
+        const { data = {} } = this.props;
 
-        return view;
+        return {
+            title: data.title,
+            isDone: data.isDone,
+            description: data.description
+        };
     }
 
     onEdit() {
-        const { editTodo, match: { params: { categoryId, todoId } } } = this.props;
+        const { editTodo, match: { params: { categoryId, todoId } }, history, formValues } = this.props;
+        const item = { ...formValues };
 
-        editTodo(categoryId, todoId);
+        item.id = todoId;
+        editTodo(item, categoryId);
+
+        history.push(`/todos/${categoryId}`);
     }
 
     render() {
+        const { reset } = this.props;
+
         return (
             <TodoProfilePageView
+                reset={reset}
                 onSave={this.onEdit}
                 {...this.props}/>
         );

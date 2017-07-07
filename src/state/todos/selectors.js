@@ -34,6 +34,13 @@ export const getDoneTodosCount = createSelector(
     }
 );
 
+export const getTodoById = createSelector(
+    (state, categoryId, todoId) => {
+        return _.find(state.todos[categoryId], todo => todo.id === _.toInteger(todoId));
+    },
+    todo => todo
+);
+
 export const getTodosByCategoryId = createSelector(
     (state, categoryId) => {
         const filterParams = getFilterParams(state);

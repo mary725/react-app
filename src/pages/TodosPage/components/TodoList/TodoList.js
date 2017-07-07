@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
 
-import { editTodo } from '../../../../state/todos';
+import { editTodo, deleteTodo } from '../../../../state/todos';
 import TodoListView from './components/TodoListView';
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        editTodo
+        editTodo,
+        deleteTodo
     }, dispatch);
 }
 
@@ -35,6 +36,12 @@ class TodoList extends Component {
         history.push(`/todoProfile/${categoryId}/${id}`);
     }
 
+    onDelete(id) {
+        const { match: { params: { categoryId } }, deleteTodo } = this.props;
+
+        deleteTodo(id, categoryId);
+    }
+
     render() {
         const { todos } = this.props;
 
@@ -42,7 +49,8 @@ class TodoList extends Component {
             <TodoListView
                 list={todos}
                 onChangeStatus={this.onChangeStatus}
-                onEdit={this.onEdit}/>
+                onEdit={this.onEdit}
+                onDelete={this.onDelete}/>
         );
     }
 }

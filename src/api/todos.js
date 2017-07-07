@@ -13,3 +13,7 @@ export const addTodo = (item) => {
 export const editTodo = (item, categoryId) => {
     return Promise.resolve(null);
 };
+
+export const deleteTodo = (todoId, categoryId) => {
+    return Promise.resolve(null);
+};
