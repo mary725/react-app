@@ -16,6 +16,10 @@ export const DELETE_TODO_ASYNC_REQUEST = 'DELETE_TODO_ASYNC_REQUEST';
 export const DELETE_TODO_ASYNC_SUCCESS = 'DELETE_TODO_ASYNC_SUCCESS';
 export const DELETE_TODO_ASYNC_ERROR = 'DELETE_TODO_ASYNC_ERROR';
 
+export const MOVE_TODO_ASYNC_REQUEST = 'MOVE_TODO_ASYNC_REQUEST';
+export const MOVE_TODO_ASYNC_SUCCESS = 'MOVE_TODO_ASYNC_SUCCESS';
+export const MOVE_TODO_ASYNC_ERROR = 'MOVE_TODO_ASYNC_ERROR';
+
 export const DELETE_TODOS_BY_CATEGORY_ID = 'DELETE_TODOS_BY_CATEGORY_ID';
 
 export const getTodos = () => dispatch => {
@@ -41,7 +45,11 @@ export const getTodos = () => dispatch => {
             });
 };
 
-export const addTodo = (item) => dispatch => {
+export const addTodo = (title, categoryId) => dispatch => {
+    const item = {
+        title
+    };
+
     dispatch({
         type: ADD_TODO_ASYNC_REQUEST
     });
@@ -54,7 +62,8 @@ export const addTodo = (item) => dispatch => {
                 dispatch({
                     type: ADD_TODO_ASYNC_SUCCESS,
                     payload: {
-                        item
+                        item,
+                        categoryId
                     }
                 });
             },
@@ -109,6 +118,31 @@ export const deleteTodo = (todoId, categoryId) => dispatch => {
             error => {
                 dispatch({
                     type: DELETE_TODO_ASYNC_ERROR,
+                    payload: error.message
+                });
+            });
+};
+
+export const moveTodoToOtherCategory = (todoId, oldCategoryId, newCategoryId) => dispatch => {
+    dispatch({
+        type: MOVE_TODO_ASYNC_REQUEST
+    });
+
+    api.moveTodoToOtherCategory(todoId, oldCategoryId, newCategoryId)
+        .then(
+            () => {
+                dispatch({
+                    type: MOVE_TODO_ASYNC_SUCCESS,
+                    payload: {
+                        todoId,
+                        oldCategoryId,
+                        newCategoryId
+                    }
+                });
+            },
+            error => {
+                dispatch({
+                    type: MOVE_TODO_ASYNC_ERROR,
                     payload: error.message
                 });
             });

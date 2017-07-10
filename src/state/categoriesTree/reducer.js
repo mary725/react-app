@@ -1,44 +1,68 @@
-import _ from 'lodash';
-
-import { deleteCategoryFromStructure } from './utils';
+import {
+    deleteCategoryFromStructure,
+    addCategoryToStructure
+} from './utils';
 import {
     ADD_CATEGORY_ASYNC_SUCCESS,
     DELETE_CATEGORY_ASYNC_SUCCESS,
     EDIT_CATEGORY_ASYNC_SUCCESS,
-    GET_CATEGORIES_ASYNC_SUCCESS
+    GET_CATEGORIES_ASYNC_SUCCESS,
+    GET_CATEGORIES_ASYNC_REQUEST,
+    ADD_CATEGORY_ASYNC_REQUEST,
+    EDIT_CATEGORY_ASYNC_REQUEST,
+    DELETE_CATEGORY_ASYNC_REQUEST
 } from './actions';
 
-export default function categoriesTree(state = {}, action) {
+const initialState = {
+    data: {},
+    isFetching: false
+};
+
+export default function categoriesTree(state = initialState, action) {
     switch (action.type) {
         case GET_CATEGORIES_ASYNC_SUCCESS: {
-            return action.payload.data;
+            return {
+                ...state,
+                data: action.payload.data,
+                isFetching: false
+            };
         }
         case ADD_CATEGORY_ASYNC_SUCCESS: {
-            let newState = { ...state };
-
-            if (action.payload.parentId) {
-                newState = {
-                    ...state,
-                    [action.payload.parentId]: {
-                        ...state[action.payload.parentId],
-                        childrenList: [...state[action.payload.parentId].childrenList || [], action.payload.itemId]
-                    }
-                };
-            }
-            newState[action.payload.itemId] = action.payload.item;
-            return newState;
+            return {
+                ...state,
+                isFetching: false,
+                data: addCategoryToStructure(state.data,
+                        action.payload)
+            };
         }
         case EDIT_CATEGORY_ASYNC_SUCCESS: {
             return {
                 ...state,
-                [action.payload.id]: {
-                    ...state[action.payload.id],
-                    categoryName: action.payload.categoryName
+                isFetching: false,
+                data: {
+                    ...state.data,
+                    [action.payload.id]: {
+                        ...state.data[action.payload.id],
+                        categoryName: action.payload.categoryName
+                    }
                 }
             };
         }
         case DELETE_CATEGORY_ASYNC_SUCCESS: {
-            return deleteCategoryFromStructure(state, action.payload.id);
+            return {
+                ...state,
+                isFetching: false,
+                data: deleteCategoryFromStructure(state.data, action.payload.id)
+            };
+        }
+        case GET_CATEGORIES_ASYNC_REQUEST:
+        case ADD_CATEGORY_ASYNC_REQUEST:
+        case EDIT_CATEGORY_ASYNC_REQUEST:
+        case DELETE_CATEGORY_ASYNC_REQUEST: {
+            return {
+                ...state,
+                isFetching: true
+            };
         }
         default:
             return state;

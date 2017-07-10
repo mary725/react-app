@@ -1,31 +1,33 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 
+const getCategoryTree = state => _.get(state, 'categoriesTree.data');
+
 export const getCategoryById = createSelector(
-    (state, id) => {
-        return _.get(state, ['categoriesTree', _.toString(id)]);
-    },
-    category => category
+    [getCategoryTree, (state, id) => id],
+    (categoriesTree, id) => {
+        return _.get(categoriesTree, _.toString(id));
+    }
 );
 
 export const getRootCategoryIds = createSelector(
-    (state) => {
+    getCategoryTree,
+    (categoriesTree) => {
         let children = [];
         let rootCategoriesIds = [];
 
-        _.forOwn(state.categoriesTree, value => {
+        _.forOwn(categoriesTree, value => {
             if (_.isArray(value.childrenList)) {
                 children.push(...value.childrenList);
             }
         });
 
-        _.forOwn(state.categoriesTree, (value, key) => {
+        _.forOwn(categoriesTree, (value, key) => {
             if (!_.includes(children, key)) {
                 rootCategoriesIds.push(key);
             }
         });
 
         return rootCategoriesIds;
-    },
-    rootCategoryIds => rootCategoryIds
+    }
 );

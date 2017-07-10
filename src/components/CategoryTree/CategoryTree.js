@@ -21,6 +21,10 @@ class CategoryTree extends Component {
         isProfileMode: PropTypes.bool
     };
 
+    static defaultProps = {
+        isProfileMode: false
+    };
+
     render() {
         const { isProfileMode } = this.props;
         const TreeItemComponent = isProfileMode

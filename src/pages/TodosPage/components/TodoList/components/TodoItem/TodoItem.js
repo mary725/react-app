@@ -24,7 +24,7 @@ class TodoItem extends Component {
                 <div className='todo-item-info'>
                     <Checkbox
                         className='chb'
-                        checked={item.isDone}
+                        checked={!!item.isDone}
                         onCheck={(event, isChecked) => onChangeStatus && onChangeStatus(item.id, isChecked)}/>
                     <span className='title'>{item.title}</span>
                 </div>

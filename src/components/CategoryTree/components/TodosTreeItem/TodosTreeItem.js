@@ -5,8 +5,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
 
-import { deleteCategory, editCategory, addCategory } from '../../../../state/categoriesTree/index';
-import { showCategoryModal } from '../../../../state/modal/index';
+import {
+    deleteCategory,
+    editCategory,
+    addCategory
+} from '../../../../state/categoriesTree/index';
+import {
+    showCategoryModal,
+    showConfirmModal
+} from '../../../../state/modal/index';
 import TodosTreeItemView from './components/TodosTreeItemView';
 
 function mapDispatchToProps(dispatch) {
@@ -14,7 +21,8 @@ function mapDispatchToProps(dispatch) {
         deleteCategory,
         editCategory,
         addCategory,
-        showCategoryModal
+        showCategoryModal,
+        showConfirmModal
     }, dispatch);
 }
 
@@ -38,9 +46,12 @@ class TodosTreeItem extends Component {
     }
 
     onDeleteCategoryClick() {
-        const { deleteCategory, id } = this.props;
+        const { showConfirmModal, deleteCategory, id } = this.props;
 
-        deleteCategory(id);
+        showConfirmModal({
+            onConfirm: () => deleteCategory(id),
+            titleKey: 'todosPage.modal.titleConfirmation'
+        });
     }
 
     onEditCategoryClick() {

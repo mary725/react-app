@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ContentReply from 'react-material-icons/icons/content/reply';
+import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import autobind from 'autobind-decorator';
 
-import './TodoProfileTreeItem.scss';
+import {
+    moveTodoToOtherCategory
+} from '../../../../state/todos';
+import {
+    showConfirmModal
+} from '../../../../state/modal/index';
+import TodoProfileTreeItemView from './components/TodoProfileTreeItemView';
 
-const TodoProfileTreeItem = (props) => {
-    const { data: { categoryName } } = props;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        moveTodoToOtherCategory,
+        showConfirmModal
+    }, dispatch);
+}
 
-    return (
-        <div className="todo-profile-tree-item">
-            <div className="todos-tree-item-name">
-                <span>{categoryName}</span>
-            </div>
-            <div className="todos-tree-item-actions">
-                <ContentReply className="icon"/>
-            </div>
-        </div>
-    );
-};
+@injectIntl
+@connect(null, mapDispatchToProps)
+@autobind
+class TodoProfileTreeItem extends Component {
+    static propTypes = {
+        moveTodoToOtherCategory: PropTypes.func,
+        showConfirmModal: PropTypes.func
+    };
 
-TodoProfileTreeItem.propTypes = {
-    data: PropTypes.shape({
-        categoryName: PropTypes.string
-    })
-};
+    constructor(props) {
+        super(props);
+
+        const { intl: { formatMessage } } = props;
+    }
+
+    moveTodoToOtherCategory() {
+        const { moveTodoToOtherCategory, id } = this.props;
+
+        moveTodoToOtherCategory(null, null, id);
+    }
+
+    render() {
+        return (
+            <TodoProfileTreeItemView
+                {...this.props}
+                onMoveTodo={this.moveTodoToOtherCategory}/>
+        );
+    }
+}
 
 export default TodoProfileTreeItem;

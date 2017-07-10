@@ -6,5 +6,6 @@
   "todosPage.tree.enterCategoryTitleHint": "Enter category title",
   "todosPage.modal.titleNewCategory": "New Category",
   "todosPage.modal.titleEditCategory": "Edit Category",
+  "todosPage.modal.titleConfirmation": "Confirmation",
   "todosPage.todos.noDataMessage": "No todos found."
 }

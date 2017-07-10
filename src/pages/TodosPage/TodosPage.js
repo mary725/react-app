@@ -1,49 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import TodoList from './components/TodoList';
-import { todosActions } from '../../state/todos';
+import { addTodo } from '../../state/todos';
+import { addCategory } from '../../state/categoriesTree';
 import { getTodosByCategoryId } from '../../state/todos/selectors';
-
-import './TodosPage.scss';
-
-@injectIntl
-class TodosPage extends Component {
-    static propTypes = {
-        todos: PropTypes.array,
-        intl: intlShape
-    };
-
-    static defaultProps = {
-        todos: []
-    };
-
-    constructor(props) {
-        super(props);
-
-        const formatMessage = props.intl.formatMessage;
-
-        this.noDataMessage = formatMessage({ id: 'todosPage.todos.noDataMessage' });
-    }
-
-    render() {
-        const { todos } = this.props;
-
-        return (
-            <div className="todos-page">
-                { todos.length
-                    ? (<TodoList
-                        {...this.props}/>)
-                    : (<div>
-                        {this.noDataMessage}
-                        </div>)}
-            </div>
-        );
-    }
-}
+import TodosPageView from './components/TodosPageView';
 
 function mapStateToProps(state, props) {
     return {
@@ -54,8 +18,44 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        todosActions
+        addCategory,
+        addTodo
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodosPage);
+@connect(mapStateToProps, mapDispatchToProps)
+@autobind
+class TodosPage extends Component {
+    static propTypes = {
+        addCategory: PropTypes.func,
+        addTodo: PropTypes.func,
+        todos: PropTypes.array
+    };
+
+    onAddCategory(categoryName) {
+        const { addCategory } = this.props;
+
+        if (categoryName) {
+            addCategory && addCategory(categoryName);
+        }
+    }
+
+    onAddTodo(title) {
+        const { addTodo, match: { params: { categoryId } } } = this.props;
+
+        if (title) {
+            addTodo && addTodo(title, categoryId);
+        }
+    }
+
+    render() {
+        return (
+            <TodosPageView
+                {...this.props}
+                onAddTodo={this.onAddTodo}
+                onAddCategory={this.onAddCategory}/>
+        );
+    }
+}
+
+export default TodosPage;

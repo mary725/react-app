@@ -12,23 +12,39 @@ export const getParentId = (state, id) => {
     return parentId;
 };
 
-export const deleteCategoryFromStructure = (state, id) => {
-    let newState = {...state};
-    const parentId = getParentId(state, id);
+export const deleteCategoryFromStructure = (data, id) => {
+    let newData = {...data};
+    const parentId = getParentId(data, id);
     const array = [id];
 
-    if (newState[parentId]) {
-        _.remove(newState[parentId].childrenList, value => value === id);
+    if (newData[parentId]) {
+        _.remove(newData[parentId].childrenList, value => value === id);
     }
 
     while (array.length) {
         const currentNodeId = array.pop();
 
-        if (newState[currentNodeId].childrenList) {
-            array.push(...newState[currentNodeId].childrenList);
+        if (newData[currentNodeId].childrenList) {
+            array.push(...newData[currentNodeId].childrenList);
         }
 
-        delete newState[currentNodeId];
+        delete newData[currentNodeId];
     }
-    return newState;
+    return newData;
+};
+
+export const addCategoryToStructure = (data, { parentId, itemId, item }) => {
+    let newData = { ...data };
+
+    if (parentId) {
+        newData = {
+            ...data,
+            [parentId]: {
+                ...data[parentId],
+                childrenList: [...data[parentId].childrenList || [], itemId]
+            }
+        };
+    }
+    newData[itemId] = item;
+    return newData;
 };

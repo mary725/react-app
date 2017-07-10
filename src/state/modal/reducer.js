@@ -1,6 +1,7 @@
 import {
     HIDE_MODAL,
-    SHOW_CATEGORY_MODAL
+    SHOW_CATEGORY_MODAL,
+    SHOW_CONFIRM_MODAL
 } from './actions';
 
 export default function modal(state = {}, action) {
@@ -12,6 +13,12 @@ export default function modal(state = {}, action) {
             };
         }
         case SHOW_CATEGORY_MODAL: {
+            return {
+                type: action.payload.type,
+                params: action.payload.params,
+            };
+        }
+        case SHOW_CONFIRM_MODAL: {
             return {
                 type: action.payload.type,
                 params: action.payload.params,

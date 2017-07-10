@@ -7,9 +7,10 @@ import { withContext } from 'recompose';
 
 import store from './context/store';
 import * as locales from './locales';
-import { rootRoute } from './App.route';
 import RootModal from './components/Modal/RootModal';
 import { modals } from './components/Modal';
+import Loader from './components/Loader';
+import Layout from './pages/Layout';
 
 import './App.scss';
 
@@ -24,16 +25,19 @@ class App extends Component {
         const messages = locales['en'];
 
         return (
-            <IntlProvider locale={'en'} messages={messages}>
-                <MuiThemeProvider>
-                    <Provider store={store}>
-                        <div>
-                            { rootRoute }
-                            <RootModal />
-                        </div>
-                    </Provider>
-                </MuiThemeProvider>
-            </IntlProvider>
+            <div className="app">
+                <IntlProvider locale={'en'} messages={messages}>
+                    <MuiThemeProvider>
+                        <Provider store={store}>
+                            <div>
+                                <Layout />
+                                <RootModal />
+                                <Loader />
+                            </div>
+                        </Provider>
+                    </MuiThemeProvider>
+                </IntlProvider>
+            </div>
         );
     }
 }

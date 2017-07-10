@@ -1,19 +1,44 @@
 import _ from 'lodash';
 
 import initialState from '../mocks/initialState';
+import { DELAY } from './constants/config';
 
 export const getTodos = () => {
-    return Promise.resolve(initialState.todos);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(initialState.todos);
+        }, DELAY);
+    });
 };
 
 export const addTodo = (item) => {
-    return Promise.resolve(_.uniqueId());
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(_.toNumber(_.uniqueId()));
+        }, DELAY);
+    });
 };
 
 export const editTodo = (item, categoryId) => {
-    return Promise.resolve(null);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(null);
+        }, DELAY);
+    });
 };
 
 export const deleteTodo = (todoId, categoryId) => {
-    return Promise.resolve(null);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(null);
+        }, DELAY);
+    });
+};
+
+export const moveTodoToOtherCategory = (todoId, oldCategoryId, newCategoryId) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(null);
+        }, DELAY);
+    });
 };

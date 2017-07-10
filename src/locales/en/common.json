@@ -3,5 +3,7 @@
     "common.button.saveChanges": "Save changes",
     "common.button.cancel": "Cancel",
     "common.button.save": "Save",
-    "common.notFoundMessage": "Page not found."
+    "common.button.ok": "Ok",
+    "common.notFoundMessage": "Page not found.",
+    "common.confirmMessage": "Are you sure?"
 }

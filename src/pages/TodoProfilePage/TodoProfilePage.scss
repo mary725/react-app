@@ -2,34 +2,4 @@
 
 .todo-profile-page {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin-left: 40px;
-    margin-top: 10px;
-
-    .profile-action-panel {
-        display: flex;
-        justify-content: flex-end;
-
-        .btn {
-            margin-left: 15px;
-        }
-    }
-
-    .action-panel,
-    .title,
-    .chb-done {
-        margin-bottom: 10px;
-    }
-
-    .description {
-        height: 500px;
-        flex-grow: 1;
-        resize: none;
-        border: 1px solid $color_grey;
-
-        &:focus {
-            border: 1px solid $color_blue;
-        }
-    }
 }

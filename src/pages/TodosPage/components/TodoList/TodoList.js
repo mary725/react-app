@@ -5,13 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
 
+import {
+    showConfirmModal
+} from '../../../../state/modal/index';
 import { editTodo, deleteTodo } from '../../../../state/todos';
 import TodoListView from './components/TodoListView';
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         editTodo,
-        deleteTodo
+        deleteTodo,
+        showConfirmModal
     }, dispatch);
 }
 
@@ -21,7 +25,8 @@ function mapDispatchToProps(dispatch) {
 class TodoList extends Component {
     static propTypes = {
         editTodo: PropTypes.func.isRequired,
-        todos: PropTypes.array
+        todos: PropTypes.array,
+        showConfirmModal: PropTypes.func
     };
 
     onChangeStatus(id, isDone) {
@@ -37,9 +42,12 @@ class TodoList extends Component {
     }
 
     onDelete(id) {
-        const { match: { params: { categoryId } }, deleteTodo } = this.props;
+        const { showConfirmModal, match: { params: { categoryId } }, deleteTodo } = this.props;
 
-        deleteTodo(id, categoryId);
+        showConfirmModal({
+            onConfirm: () => deleteTodo(id, categoryId),
+            titleKey: 'todosPage.modal.titleConfirmation'
+        });
     }
 
     render() {

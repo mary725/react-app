@@ -1,19 +1,36 @@
 import _ from 'lodash';
 
 import initialState from '../mocks/initialState';
+import { DELAY } from './constants/config';
 
 export const getCategories = () => {
-    return Promise.resolve(initialState.categories);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(initialState.categories);
+        }, DELAY);
+    });
 };
 
 export const addCategory = (categoryName, parentId) => {
-    return Promise.resolve(_.uniqueId());
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(_.toNumber(_.uniqueId()));
+        }, DELAY);
+    });
 };
 
 export const deleteCategory = (id) => {
-    return Promise.resolve(null);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(null);
+        }, DELAY);
+    });
 };
 
 export const editCategory = (id, categoryName) => {
-    return Promise.resolve(null);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(null);
+        }, DELAY);
+    });
 };

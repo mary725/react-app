@@ -10,6 +10,10 @@ input {
     outline: none;
 }
 
+a {
+    cursor: pointer;
+}
+
 .icon {
     color: $color_blue !important;
 

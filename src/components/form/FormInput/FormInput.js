@@ -14,6 +14,10 @@ class FormInput extends Component {
     }
 
     handleChange(event) {
+        const { changeFieldValue, name } = this.props;
+
+        changeFieldValue('title', event.target.value);
+
         this.setState({
             value: event.target.value,
         });

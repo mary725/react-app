@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
 
 import { categoriesTree } from './categoriesTree';
 import { todos } from './todos';
@@ -9,5 +10,6 @@ export default combineReducers({
     categoriesTree,
     todos,
     modal,
-    filter
+    filter,
+    form: reduxFormReducer
 });

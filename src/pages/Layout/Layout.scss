@@ -3,30 +3,12 @@
     flex-direction: column;
     margin-bottom: 40px;
 
+    .header {
+        margin-bottom: 10px;
+    }
+
     .content {
-        width: 1200px;
-        margin: auto;
-
-        .action-panel {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px;
-        }
-
-        .filter-block {
-            margin: 10px;
-        }
-
-        .tree-container {
-            display: flex;
-            justify-content: space-between;
-            margin: 40px 10px;
-
-            .page-content {
-                flex-grow: 1;
-                margin-left: 40px;
-                margin-top: 10px;
-            }
-        }
+        min-width: 800px;
+        margin: 0 200px;
     }
 }
