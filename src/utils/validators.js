@@ -1,0 +1,1 @@
+export const required = (value, formatMessage) => (!value ? formatMessage({ id: 'common.validators.required'}) : undefined);

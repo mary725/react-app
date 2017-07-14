@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
+import {
+    TextField,
+    Checkbox
+} from 'redux-form-material-ui';
 
-import FormCheckBox from '../../../../../components/form/FormCheckBox';
-import FormInput from '../../../../../components/form/FormInput';
-import FormTextarea from '../../../../../components/form/FormTextarea';
-import AddUser from './AppUser';
+import * as validators from '../../../../../utils/validators';
 
 import '../Profile.scss';
 
@@ -15,7 +16,8 @@ import '../Profile.scss';
 class ProfileView extends Component {
     static propTypes = {
         data: PropTypes.object,
-        onSave: PropTypes.func
+        onSave: PropTypes.func,
+        reset: PropTypes.func
     };
 
     constructor(props) {
@@ -31,44 +33,42 @@ class ProfileView extends Component {
     }
 
     render() {
-        const { onSave, changeFieldValue } = this.props;
+        const { onSave, reset, intl: { formatMessage }, handleSubmit } = this.props;
 
         return (
-            <div className="profile">
-                <AddUser
-                    onSubmit={()=>{}}
-                    initialValues={{
-                        name: 'Test',
-                        email: 'test@test.com',
-                    }} />
+            <form className="profile" onSubmit={handleSubmit(onSave)}>
                 <div className='profile-action-panel'>
                     <RaisedButton
                         className='btn'
                         label={this.btnSaveChanges}
                         primary
-                        onClick={onSave}/>
+                        type='submit'/>
                     <RaisedButton
                         className='btn'
-                        label={this.btnCancel} />
+                        label={this.btnCancel}
+                        onClick={reset}/>
                 </div>
                 <Field
                     name='title'
-                    hint={this.titleHint}
+                    hintText={this.titleHint}
                     className='title'
-                    type='text'
-                    component={FormInput}/>
+                    component={TextField}
+                    validate={value => validators.required(value, formatMessage)}/>
                 <Field
                     name='isDone'
                     label={this.showDoneMessage}
                     className='chb-done'
                     type='checkbox'
-                    component={FormCheckBox}/>
+                    component={Checkbox}/>
                 <Field
                     name='description'
-                    placeholder={this.descriptionHint}
+                    hintText={this.descriptionHint}
+                    fullWidth
                     className='description'
-                    component={FormTextarea}/>
-            </div>
+                    multiLine
+                    rows={15}
+                    component={TextField}/>
+            </form>
         );
     }
 }

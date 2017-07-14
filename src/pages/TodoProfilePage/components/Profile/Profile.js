@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import autobind from 'autobind-decorator';
-import { reduxForm, initialize, getFormValues, reset, change } from 'redux-form';
+import { reduxForm, initialize, getFormValues, reset } from 'redux-form';
+import _ from 'lodash';
 
 import { getTodoById } from '../../../../state/todos/selectors';
 import { editTodo } from '../../../../state/todos';
@@ -26,9 +27,6 @@ function mapDispatchToProps(dispatch) {
         initialize: (initialValues) => {
             dispatch(initialize(todoProfileFormName, initialValues));
         },
-        changeFieldValue: (field, value) => {
-            dispatch(change(todoProfileFormName, field, value));
-        },
         reset: () => {
             dispatch(reset(todoProfileFormName));
         }
@@ -37,10 +35,7 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 @reduxForm({
-    form: todoProfileFormName,
-    initialValues: {
-        description: '33333333333333'
-    }
+    form: todoProfileFormName
 })
 @autobind
 class Profile extends Component {
@@ -55,8 +50,8 @@ class Profile extends Component {
         this.props.initialize(this.getInitialValues());
     }
 
-    getInitialValues() {
-        const { data = {} } = this.props;
+    getInitialValues(newData = {}) {
+        const { data = newData } = this.props;
 
         return {
             title: data.title,
@@ -65,11 +60,17 @@ class Profile extends Component {
         };
     }
 
+    componentWillReceiveProps(newProps) {
+        if (newProps.data !== this.props.data) {
+            this.props.initialize(this.getInitialValues(newProps.data));
+        }
+    }
+
     onEdit() {
         const { editTodo, match: { params: { categoryId, todoId } }, history, formValues } = this.props;
         const item = { ...formValues };
 
-        item.id = todoId;
+        item.id = _.toNumber(todoId);
         editTodo(item, categoryId);
 
         history.push(`/todos/${categoryId}`);
@@ -78,8 +79,8 @@ class Profile extends Component {
     render() {
         return (
             <ProfileView
-                onSave={this.onEdit}
-                {...this.props}/>
+                {...this.props}
+                onSave={this.onEdit}/>
         );
     }
 }

@@ -5,5 +5,6 @@
     "common.button.save": "Save",
     "common.button.ok": "Ok",
     "common.notFoundMessage": "Page not found.",
-    "common.confirmMessage": "Are you sure?"
+    "common.confirmMessage": "Are you sure?",
+    "common.validators.required": "Required"
 }
