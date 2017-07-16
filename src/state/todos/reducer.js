@@ -57,26 +57,29 @@ export default function todos(state = initialState, action) {
             };
         }
         case DELETE_TODOS_BY_CATEGORY_ID: {
-            let todos = {...state.data};
+            let data = {...state.data};
 
-            delete todos[action.payload.id];
+            delete data[action.payload.id];
 
             return {
                 ...state,
                 isFetching: false,
-                data: todos
+                data
             };
         }
         case MOVE_TODO_ASYNC_SUCCESS: {
-            let todos = {...state.data};
-            const item = todos[action.payload.oldCategoryId];
+            const data = {...state.data};
+            const item = data[action.payload.oldCategoryId];
 
-            delete todos[action.payload.oldCategoryId];
+            delete data[action.payload.oldCategoryId];
+
+            data[action.payload.newCategoryId] = [ ...data[action.payload.newCategoryId],
+                item];
 
             return {
                 ...state,
                 isFetching: false,
-                data: todos
+                data
             };
         }
         case MOVE_TODO_ASYNC_REQUEST:

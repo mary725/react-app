@@ -1,5 +1,6 @@
 {
   "todoProfile.titleHint": "Title",
   "todoProfile.showDone": "Done",
-  "todoProfile.descriptionHint": "Description"
+  "todoProfile.descriptionHint": "Description",
+  "todoProfile.confirmMessage.moveTodo": "Are you sure? Unsaved changes will be missing."
 }

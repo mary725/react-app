@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import ContentReply from 'react-material-icons/icons/content/reply';
 
 import '../TodoProfileTreeItem.scss';
 
 const TodoProfileTreeItemView = (props) => {
-    const { data: { categoryName }, id, onMoveTodo } = props;
+    const { data: { categoryName }, onMoveTodo, onLinkClick } = props;
 
     return (
         <div className="todo-profile-tree-item">
             <div className="todos-tree-item-name">
-                <Link to={`/todos/${id}`}>{categoryName}</Link>
+                <a onClick={onLinkClick}>{categoryName}</a>
             </div>
             <div className="todos-tree-item-actions">
                 <ContentReply
@@ -26,7 +25,8 @@ TodoProfileTreeItemView.propTypes = {
     data: PropTypes.shape({
         categoryName: PropTypes.string
     }),
-    onMoveTodo: PropTypes.func
+    onMoveTodo: PropTypes.func,
+    onLinkClick: PropTypes.func
 };
 
 export default TodoProfileTreeItemView;

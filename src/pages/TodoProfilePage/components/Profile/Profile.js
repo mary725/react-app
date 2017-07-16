@@ -9,15 +9,14 @@ import _ from 'lodash';
 import { getTodoById } from '../../../../state/todos/selectors';
 import { editTodo } from '../../../../state/todos';
 import ProfileView from './components/ProfileView';
-
-const todoProfileFormName = 'todoProfileFormName';
+import formNames from '../../../../constants/form-names';
 
 const mapStateToProps = (state, props) => {
     return {
         data: getTodoById(state,
                             props.match.params.categoryId,
                             props.match.params.todoId),
-        formValues: getFormValues(todoProfileFormName)(state)
+        formValues: getFormValues(formNames.todoProfileFormName)(state)
     };
 };
 
@@ -25,17 +24,17 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         editTodo,
         initialize: (initialValues) => {
-            dispatch(initialize(todoProfileFormName, initialValues));
+            dispatch(initialize(formNames.todoProfileFormName, initialValues));
         },
         reset: () => {
-            dispatch(reset(todoProfileFormName));
+            dispatch(reset(formNames.todoProfileFormName));
         }
     }, dispatch);
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
 @reduxForm({
-    form: todoProfileFormName
+    form: formNames.todoProfileFormName
 })
 @autobind
 class Profile extends Component {

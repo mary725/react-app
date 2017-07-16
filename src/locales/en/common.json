@@ -6,5 +6,6 @@
     "common.button.ok": "Ok",
     "common.notFoundMessage": "Page not found.",
     "common.confirmMessage": "Are you sure?",
-    "common.validators.required": "Required"
+    "common.validators.required": "Required",
+    "common.modal.titleConfirmation": "Confirmation"
 }

@@ -50,7 +50,7 @@ class TodosTreeItem extends Component {
 
         showConfirmModal({
             onConfirm: () => deleteCategory(id),
-            titleKey: 'todosPage.modal.titleConfirmation'
+            titleKey: 'common.modal.titleConfirmation'
         });
     }
 
