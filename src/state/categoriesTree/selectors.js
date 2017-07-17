@@ -23,8 +23,8 @@ export const getRootCategoryIds = createSelector(
         });
 
         _.forOwn(categoriesTree, (value, key) => {
-            if (!_.includes(children, key)) {
-                rootCategoriesIds.push(key);
+            if (!_.includes(children, _.toNumber(key))) {
+                rootCategoriesIds.push(_.toNumber(key));
             }
         });
 

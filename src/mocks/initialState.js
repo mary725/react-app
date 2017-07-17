@@ -1,6 +1,11 @@
 import _ from 'lodash';
 
-const rootIds = [_.uniqueId(), _.uniqueId(), _.uniqueId(), _.uniqueId()];
+const rootIds = [
+    _.toNumber(_.uniqueId()),
+    _.toNumber(_.uniqueId()),
+    _.toNumber(_.uniqueId()),
+    _.toNumber(_.uniqueId())
+];
 
 export default {
     categories: {

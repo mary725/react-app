@@ -1,4 +1,5 @@
 import React from 'react';
+import { pure } from 'recompose';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
@@ -36,7 +37,7 @@ TodosTreeItem.propTypes = {
     data: PropTypes.shape({
          categoryName: PropTypes.string
     }),
-    id: PropTypes.string,
+    id: PropTypes.number,
     onDeleteCategoryClick: PropTypes.func,
     onEditCategoryClick: PropTypes.func,
     onAddCategoryClick: PropTypes.func,
@@ -47,4 +48,4 @@ TodosTreeItem.defaultProps = {
     data: {}
 };
 
-export default TodosTreeItem;
+export default pure(TodosTreeItem);

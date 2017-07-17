@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import autobind from 'autobind-decorator';
 import Checkbox from 'material-ui/Checkbox';
 import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
@@ -41,4 +42,4 @@ class TodoItem extends Component {
     }
 }
 
-export default TodoItem;
+export default pure(TodoItem);

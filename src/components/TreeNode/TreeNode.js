@@ -18,7 +18,7 @@ const mapStateToProps = (state, props) => {
 @autobind
 class TreeNode extends Component {
     static propTypes = {
-        id: PropTypes.string,
+        id: PropTypes.number,
         data: PropTypes.object,
         itemComponent: PropTypes.func,
         getDataById: PropTypes.func

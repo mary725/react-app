@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import { injectIntl, intlShape } from 'react-intl';
 import _ from 'lodash';
 
@@ -44,7 +45,7 @@ class TodosPageView extends Component {
             <div className="todos-page">
                 <div className="page-header">
                     <h1>{this.pageTitle}</h1>
-                    <Filter className='filter-block'></Filter>
+                    <Filter></Filter>
                 </div>
                 <TodosProgressBar />
                 <div className="action-panel">
@@ -79,4 +80,4 @@ class TodosPageView extends Component {
     }
 }
 
-export default TodosPageView;
+export default pure(TodosPageView);

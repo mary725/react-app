@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import autobind from 'autobind-decorator';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -38,4 +39,4 @@ class InputWithButton extends Component {
     };
 }
 
-export default InputWithButton;
+export default pure(InputWithButton);

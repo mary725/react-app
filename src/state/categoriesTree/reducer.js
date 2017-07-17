@@ -15,7 +15,8 @@ import {
 
 const initialState = {
     data: {},
-    isFetching: false
+    isFetching: false,
+    expandedCategories: []
 };
 
 export default function categoriesTree(state = initialState, action) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import { injectIntl } from 'react-intl';
 import { mapProps } from 'recompose';
 import _ from 'lodash';
@@ -38,4 +39,4 @@ class TodoProfilePageView extends Component {
     }
 }
 
-export default TodoProfilePageView;
+export default pure(TodoProfilePageView);

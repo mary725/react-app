@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { pure } from 'recompose';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import autobind from 'autobind-decorator';
@@ -45,6 +46,7 @@ class FilterView extends Component {
     clearSearchString() {
         const { changeFilterParams } = this.props;
 
+        this.textField.value = '';
         changeFilterParams({ searchString: '' });
     }
 
@@ -89,4 +91,4 @@ class FilterView extends Component {
     }
 }
 
-export default FilterView;
+export default pure(FilterView);

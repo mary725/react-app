@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import LinearProgress from 'material-ui/LinearProgress';
 
 const TodosProgressBarView = (props) => {
@@ -18,4 +19,4 @@ TodosProgressBarView.defaultProps = {
     mode: 'determinate'
 };
 
-export default TodosProgressBarView;
+export default pure(TodosProgressBarView);

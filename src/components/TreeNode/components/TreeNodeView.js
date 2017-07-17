@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import autobind from 'autobind-decorator';
 import HardwareKeyboardArrowRight from 'react-material-icons/icons/hardware/keyboard-arrow-right';
 import HardwareKeyboardArrowDown from 'react-material-icons/icons/hardware/keyboard-arrow-down';
@@ -56,4 +57,4 @@ class TreeNodeView extends Component {
 	}
 }
 
-export default TreeNodeView;
+export default pure(TreeNodeView);

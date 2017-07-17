@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
+import { pure } from 'recompose';
 
 import './NotFound.scss';
 
@@ -22,4 +23,4 @@ class NotFound extends Component {
     }
 }
 
-export default NotFound;
+export default pure(NotFound);

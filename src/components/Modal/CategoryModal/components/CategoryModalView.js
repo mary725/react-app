@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import { injectIntl } from 'react-intl';
 import autobind from 'autobind-decorator';
 import { Field } from 'redux-form';
@@ -60,4 +61,4 @@ class CategoryModalView extends Component {
     };
 }
 
-export default CategoryModalView;
+export default pure(CategoryModalView);

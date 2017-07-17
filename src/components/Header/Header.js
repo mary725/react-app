@@ -1,4 +1,5 @@
 import React from 'react';
+import { pure } from 'recompose';
 
 import './Header.scss';
 import logo from '../../assets/images/logo.svg';
@@ -11,4 +12,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default pure(Header);

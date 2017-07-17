@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 import { addTodo } from '../../state/todos';
 import { addCategory } from '../../state/categoriesTree';
@@ -44,7 +45,7 @@ class TodosPage extends Component {
         const { addTodo, match: { params: { categoryId } } } = this.props;
 
         if (title) {
-            addTodo && addTodo(title, categoryId);
+            addTodo && addTodo(title, _.toNumber(categoryId));
         }
     }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { pure } from 'recompose';
 
 import Header from '../../../components/Header';
 import { route } from '../../../App.route';
@@ -18,4 +19,4 @@ class LayoutView extends Component {
     }
 }
 
-export default LayoutView;
+export default pure(LayoutView);

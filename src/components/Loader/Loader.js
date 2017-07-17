@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import { connect } from 'react-redux';
 import Loader from 'react-loader';
 import _ from 'lodash';
@@ -26,5 +27,5 @@ class CustomLoader extends Component {
     }
 }
 
-export default CustomLoader;
+export default pure(CustomLoader);
 

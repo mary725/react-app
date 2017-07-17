@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import ContentReply from 'react-material-icons/icons/content/reply';
 import cn from 'classnames';
 
@@ -32,4 +33,4 @@ TodoProfileTreeItemView.propTypes = {
     isCurrentCategory: PropTypes.bool
 };
 
-export default TodoProfileTreeItemView;
+export default pure(TodoProfileTreeItemView);

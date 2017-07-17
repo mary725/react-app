@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import { injectIntl } from 'react-intl';
 import { Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -73,4 +74,4 @@ class ProfileView extends Component {
     }
 }
 
-export default ProfileView;
+export default pure(ProfileView);

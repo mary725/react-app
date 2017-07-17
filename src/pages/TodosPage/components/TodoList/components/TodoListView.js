@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import autobind from 'autobind-decorator';
 
 import TodoItem from './TodoItem';
@@ -39,4 +40,4 @@ class TodoListView extends Component {
     }
 }
 
-export default TodoListView;
+export default pure(TodoListView);

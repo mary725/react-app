@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import { injectIntl } from 'react-intl';
 import autobind from 'autobind-decorator';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -58,4 +59,4 @@ class ConfirmModal extends Component {
     };
 }
 
-export default ConfirmModal;
+export default pure(ConfirmModal);
