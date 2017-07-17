@@ -13,7 +13,8 @@ import {
 } from './actions';
 import {
     deleteTodo,
-    editTodo
+    editTodo,
+    moveTodo
 } from './utils';
 
 const initialState = {
@@ -31,10 +32,11 @@ export default function todos(state = initialState, action) {
             };
         }
         case ADD_TODO_ASYNC_SUCCESS: {
+            const { categoryId, item } = action.payload;
             const data = { ...state.data };
 
-            data[action.payload.categoryId] = [ ...data[action.payload.categoryId],
-                action.payload.item];
+            data[categoryId] = [ ...data[categoryId],
+                item];
 
             return {
                 ...state,
@@ -53,7 +55,9 @@ export default function todos(state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
-                data: deleteTodo(state.data, action.payload)
+                data: deleteTodo(state.data,
+                    action.payload.categoryId,
+                    action.payload.todoId)
             };
         }
         case DELETE_TODOS_BY_CATEGORY_ID: {
@@ -68,18 +72,12 @@ export default function todos(state = initialState, action) {
             };
         }
         case MOVE_TODO_ASYNC_SUCCESS: {
-            const data = {...state.data};
-            const item = data[action.payload.oldCategoryId];
-
-            delete data[action.payload.oldCategoryId];
-
-            data[action.payload.newCategoryId] = [ ...data[action.payload.newCategoryId],
-                item];
+            const { oldCategoryId, newCategoryId, todoId } = action.payload;
 
             return {
                 ...state,
                 isFetching: false,
-                data
+                data: moveTodo(state.data, oldCategoryId, newCategoryId, todoId)
             };
         }
         case MOVE_TODO_ASYNC_REQUEST:

@@ -29,6 +29,7 @@ class TodosPageView extends Component {
 
         const formatMessage = props.intl.formatMessage;
 
+        this.pageTitle = formatMessage({ id: 'todosPage.pageTitle' });
         this.noDataMessage = formatMessage({ id: 'todosPage.todos.noDataMessage' });
         this.btnLabel = formatMessage({ id: 'common.button.add' });
         this.enterCategoryTitleHint = formatMessage({ id: 'todosPage.actionPanel.enterCategoryTitleHint' });
@@ -41,7 +42,10 @@ class TodosPageView extends Component {
 
         return (
             <div className="todos-page">
-                <Filter className='filter-block'></Filter>
+                <div className="page-header">
+                    <h1>{this.pageTitle}</h1>
+                    <Filter className='filter-block'></Filter>
+                </div>
                 <TodosProgressBar />
                 <div className="action-panel">
                     <InputWithButton

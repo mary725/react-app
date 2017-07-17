@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
         moveTodoToOtherCategory,
         showConfirmModal
     }, dispatch);
-}
+};
 
 @withRouter
 @injectIntl
@@ -75,9 +75,13 @@ class TodoProfileTreeItem extends Component {
     }
 
     render() {
+        const { match: { params: { categoryId } }, id } = this.props;
+        const isCurrentCategory = _.toNumber(categoryId) === _.toNumber(id);
+
         return (
             <TodoProfileTreeItemView
                 {...this.props}
+                isCurrentCategory={isCurrentCategory}
                 onMoveTodo={this.moveTodoToOtherCategory}
                 onLinkClick={this.onLinkClick}/>
         );

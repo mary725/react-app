@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export const deleteTodo = (data, { categoryId, todoId }) => {
+export const deleteTodo = (data, categoryId, todoId) => {
     let todos = {...data};
     let categoryTodos = [...todos[categoryId]];
 
@@ -21,6 +21,20 @@ export const editTodo = (data, { categoryId, item }) => {
     };
 
     todos[categoryId] = categoryTodos;
+
+    return todos;
+};
+
+export const moveTodo = (data, oldCategoryId, newCategoryId, todoId) => {
+    let todos = {...data};
+    const oldCategoryTodos = todos[oldCategoryId];
+    const item = _.find(oldCategoryTodos, todo => todo.id === todoId);
+    const newCategoryTodos = todos[newCategoryId] || [];
+
+    todos = deleteTodo(todos, oldCategoryId, todoId);
+
+    todos[newCategoryId] = [ ...newCategoryTodos,
+        item];
 
     return todos;
 };

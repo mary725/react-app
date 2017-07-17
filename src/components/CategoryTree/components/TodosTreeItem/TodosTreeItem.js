@@ -4,6 +4,8 @@ import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import autobind from 'autobind-decorator';
+import { withRouter } from 'react-router';
+import _ from 'lodash';
 
 import {
     deleteCategory,
@@ -26,6 +28,7 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
+@withRouter
 @injectIntl
 @connect(null, mapDispatchToProps)
 @autobind
@@ -75,9 +78,13 @@ class TodosTreeItem extends Component {
     }
 
     render() {
+        const { match: { params: { categoryId } }, id } = this.props;
+        const isCurrentCategory = _.toNumber(categoryId) === _.toNumber(id);
+
         return (
             <TodosTreeItemView
                 {...this.props}
+                isCurrentCategory={isCurrentCategory}
                 onDeleteCategoryClick={this.onDeleteCategoryClick}
                 onEditCategoryClick={this.onEditCategoryClick}
                 onAddCategoryClick={this.onAddCategoryClick} />

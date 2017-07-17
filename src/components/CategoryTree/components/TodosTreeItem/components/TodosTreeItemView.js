@@ -4,16 +4,18 @@ import { Link } from 'react-router-dom';
 import EditorModeEdit from 'react-material-icons/icons/editor/mode-edit';
 import ContentAddCircleOutline from 'react-material-icons/icons/content/add-circle-outline';
 import ContentClear from 'react-material-icons/icons/content/clear';
+import cn from 'classnames';
 
 import '../TodosTreeItem.scss';
 
 const TodosTreeItem = (props) => {
-    const { data: { categoryName }, id, onDeleteCategoryClick, onEditCategoryClick, onAddCategoryClick } = props;
+    const { data: { categoryName }, id, isCurrentCategory, onDeleteCategoryClick, onEditCategoryClick, onAddCategoryClick } = props;
+    const linkClassName = cn({ 'current-category': isCurrentCategory });
 
     return (
         <div className="todos-tree-item">
             <div className="todos-tree-item-name">
-                <Link to={`/todos/${id}`}>{categoryName}</Link>
+                <Link to={`/todos/${id}`} className={linkClassName}>{categoryName}</Link>
                 <EditorModeEdit
                     className="icon icon-edit"
                     onClick={onEditCategoryClick}/>
@@ -37,7 +39,8 @@ TodosTreeItem.propTypes = {
     id: PropTypes.string,
     onDeleteCategoryClick: PropTypes.func,
     onEditCategoryClick: PropTypes.func,
-    onAddCategoryClick: PropTypes.func
+    onAddCategoryClick: PropTypes.func,
+    isCurrentCategory: PropTypes.bool
 };
 
 TodosTreeItem.defaultProps = {

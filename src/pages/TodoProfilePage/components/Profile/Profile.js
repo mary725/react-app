@@ -6,19 +6,13 @@ import autobind from 'autobind-decorator';
 import { reduxForm, initialize, getFormValues, reset } from 'redux-form';
 import _ from 'lodash';
 
-import { getTodoById } from '../../../../state/todos/selectors';
 import { editTodo } from '../../../../state/todos';
 import ProfileView from './components/ProfileView';
 import formNames from '../../../../constants/form-names';
 
-const mapStateToProps = (state, props) => {
-    return {
-        data: getTodoById(state,
-                            props.match.params.categoryId,
-                            props.match.params.todoId),
-        formValues: getFormValues(formNames.todoProfileFormName)(state)
-    };
-};
+const mapStateToProps = (state) => ({
+    formValues: getFormValues(formNames.todoProfileFormName)(state)
+});
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({

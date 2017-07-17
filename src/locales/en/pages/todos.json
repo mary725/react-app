@@ -1,4 +1,5 @@
 {
+  "todosPage.pageTitle": "To-Do List",
   "todosPage.filter.showDone": "Show done",
   "todosPage.actionPanel.enterCategoryTitleHint": "Enter category title",
   "todosPage.actionPanel.enterTaskTitleHint": "Enter task title",

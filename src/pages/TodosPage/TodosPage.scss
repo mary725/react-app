@@ -5,8 +5,16 @@
         margin: 10px;
     }
 
-    .filter-block {
-        margin: 0 10px 10px 10px;
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        border: none;
+
+        .filter-block {
+            margin: 0 10px 10px 10px;
+        }
     }
 
     .page-content {

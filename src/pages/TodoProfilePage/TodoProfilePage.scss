@@ -2,4 +2,9 @@
 
 .todo-profile-page {
     display: flex;
+    flex-direction: column;
+
+    &-content {
+        display: flex;
+    }
 }
