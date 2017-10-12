@@ -14,6 +14,7 @@ class CategoryTreeView extends Component {
         rootCategoryIds: PropTypes.array,
         itemComponent: PropTypes.func,
         getDataById: PropTypes.func,
+        setExpandedState: PropTypes.func,
         intl: intlShape
     };
 
@@ -30,7 +31,7 @@ class CategoryTreeView extends Component {
     }
 
     render() {
-        const { rootCategoryIds, itemComponent, getDataById } = this.props;
+        const { rootCategoryIds, itemComponent, getDataById, setExpandedState } = this.props;
 
         return (
             <div className='category-tree'>
@@ -40,7 +41,8 @@ class CategoryTreeView extends Component {
                             key={id.toString()}
                             id={id}
                             itemComponent={itemComponent}
-                            getDataById={getDataById}/>
+                            getDataById={getDataById}
+                            setExpandedState={setExpandedState}/>
                         ))
                     : (<div>
                         {this.noDataMessage}

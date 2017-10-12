@@ -46,7 +46,7 @@ class TodoList extends Component {
 
         showConfirmModal({
             onConfirm: () => deleteTodo(id, categoryId),
-            titleKey: 'todosPage.modal.titleConfirmation'
+            titleKey: 'common.modal.titleConfirmation'
         });
     }
 

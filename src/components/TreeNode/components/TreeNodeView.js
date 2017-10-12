@@ -24,7 +24,7 @@ class TreeNodeView extends Component {
 	};
 
 	render() {
-		const { data: { name, childrenList = [] } = {}, itemComponent, onExpand, isExpanded, getDataById } = this.props;
+		const { data: { name, childrenList = [] } = {}, itemComponent, onExpand, isExpanded, getDataById, setExpandedState } = this.props;
 		const Component = itemComponent;
 		const expandIcon = isExpanded
 			? <HardwareKeyboardArrowDown onClick={onExpand} className="icon icon-arrow"/>
@@ -34,6 +34,7 @@ class TreeNodeView extends Component {
 				key={id && id.toString()}
 				id={id}
 				getDataById={getDataById}
+				setExpandedState={setExpandedState}
 				itemComponent={Component} />
 		));
 
