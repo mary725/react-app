@@ -55,9 +55,17 @@ class TodoProfileTreeItem extends Component {
     }
 
     moveTodoToOtherCategory() {
-        const { moveTodoToOtherCategory, id, match: { params: { categoryId, todoId } } } = this.props;
+        const {
+            history: { push },
+            moveTodoToOtherCategory,
+            id,
+            match: { params: { categoryId, todoId } }
+        } = this.props;
 
-        this.onChange(() => moveTodoToOtherCategory(_.toNumber(todoId), _.toNumber(categoryId), id));
+        this.onChange(() => {
+            moveTodoToOtherCategory(_.toNumber(todoId), _.toNumber(categoryId), id);
+            push(`/todoProfile/${id}/${todoId}`);
+        });
     }
 
     onChange(action) {
