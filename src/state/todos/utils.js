@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 export const deleteTodo = (data, categoryId, todoId) => {
     let todos = {...data};
-    let categoryTodos = [...todos[categoryId]];
+    let categoryTodos = [...todos[categoryId] || []];
 
     _.remove(categoryTodos, todo => todo.id === todoId);
     todos[categoryId] = categoryTodos;
@@ -28,7 +28,7 @@ export const editTodo = (data, { categoryId, item }) => {
 export const moveTodo = (data, oldCategoryId, newCategoryId, todoId) => {
     let todos = {...data};
     const oldCategoryTodos = todos[oldCategoryId];
-    const item = _.find(oldCategoryTodos, todo => todo.id === todoId);
+    const item = _.cloneDeep(_.find(oldCategoryTodos, todo => todo.id === todoId));
     const newCategoryTodos = todos[newCategoryId] || [];
 
     todos = deleteTodo(todos, oldCategoryId, todoId);

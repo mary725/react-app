@@ -35,7 +35,7 @@ export default function todos(state = initialState, action) {
             const { categoryId, item } = action.payload;
             const data = { ...state.data };
 
-            data[categoryId] = [ ...data[categoryId],
+            data[categoryId] = [ ...data[categoryId] || [],
                 item];
 
             return {

@@ -17,6 +17,8 @@ export const EDIT_CATEGORY_ASYNC_REQUEST = 'EDIT_CATEGORY_ASYNC_REQUEST';
 export const EDIT_CATEGORY_ASYNC_SUCCESS = 'EDIT_CATEGORY_ASYNC_SUCCESS';
 export const EDIT_CATEGORY_ASYNC_ERROR = 'EDIT_CATEGORY_ASYNC_ERROR';
 
+export const SET_EXPANDED_CATEGORY_STATE = 'SET_EXPANDED_CATEGORY_STATE';
+
 export const getCategories = () => dispatch => {
     dispatch({
         type: GET_CATEGORIES_ASYNC_REQUEST
@@ -118,4 +120,14 @@ export const editCategory = (id, categoryName) => dispatch => {
                     payload: error.message
                 });
             });
+};
+
+export const setExpandedCategoryState = (id, isExpanded) => dispatch => {
+    dispatch({
+        type: SET_EXPANDED_CATEGORY_STATE,
+        payload: {
+            id,
+            isExpanded
+        }
+    });
 };

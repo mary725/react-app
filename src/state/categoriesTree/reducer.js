@@ -10,13 +10,13 @@ import {
     GET_CATEGORIES_ASYNC_REQUEST,
     ADD_CATEGORY_ASYNC_REQUEST,
     EDIT_CATEGORY_ASYNC_REQUEST,
-    DELETE_CATEGORY_ASYNC_REQUEST
+    DELETE_CATEGORY_ASYNC_REQUEST,
+    SET_EXPANDED_CATEGORY_STATE
 } from './actions';
 
 const initialState = {
     data: {},
-    isFetching: false,
-    expandedCategories: []
+    isFetching: false
 };
 
 export default function categoriesTree(state = initialState, action) {
@@ -63,6 +63,18 @@ export default function categoriesTree(state = initialState, action) {
             return {
                 ...state,
                 isFetching: true
+            };
+        }
+        case SET_EXPANDED_CATEGORY_STATE: {
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [action.payload.id]: {
+                        ...state.data[action.payload.id],
+                        isExpanded: action.payload.isExpanded
+                    }
+                }
             };
         }
         default:

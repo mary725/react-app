@@ -19,9 +19,12 @@ const mapStateToProps = (state, props) => {
 class TreeNode extends Component {
     static propTypes = {
         id: PropTypes.number,
-        data: PropTypes.object,
+        data: PropTypes.shape({
+            isExpanded: PropTypes.bool
+        }),
         itemComponent: PropTypes.func,
-        getDataById: PropTypes.func
+        getDataById: PropTypes.func,
+        setExpandedState: PropTypes.func
     };
 
     constructor(props) {
@@ -31,19 +34,20 @@ class TreeNode extends Component {
     }
 
     onExpand() {
-        this.setState({ isExpanded: !this.state.isExpanded });
+        const { setExpandedState, id, data: { isExpanded } } = this.props;
+
+        setExpandedState(id, !isExpanded);
     }
 
     render() {
-        const { getDataById } = this.props;
-        const { isExpanded = false } = this.state;
+        const { getDataById, data } = this.props;
 
         return (
             <TreeNodeView
-                isExpanded={isExpanded}
+                {...this.props}
+                isExpanded={data && data.isExpanded}
                 onExpand={this.onExpand}
-                getDataById={getDataById}
-                {...this.props}/>
+                getDataById={getDataById}/>
         );
     }
 }

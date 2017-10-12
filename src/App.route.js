@@ -1,26 +1,36 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
 import TodosPage from './pages/TodosPage';
 import TodoProfilePage from './pages/TodoProfilePage';
 import NotFound from './pages/NotFound';
 
+export const history = createBrowserHistory();
+
+const paths = {
+    root: '/',
+    todos: '/todos/:categoryId',
+    todoProfile: '/todoProfile/:categoryId/:todoId'
+};
+
 export const route = (
-    <Router>
+    <ConnectedRouter history={history}>
         <Switch>
             <Route
                 exact
-                path='/'
+                path={paths.root}
                 component={TodosPage}/>
             <Route
                 exact
-                path='/todos/:categoryId'
+                path={paths.todos}
                 component={TodosPage}/>
             <Route
                 exact
-                path='/todoProfile/:categoryId/:todoId'
+                path={paths.todoProfile}
                 component={TodoProfilePage}/>
             <Route component={NotFound}/>
         </Switch>
-    </Router>
+    </ConnectedRouter>
 );

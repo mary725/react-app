@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { getRootCategoryIds, getCategoryById } from '../../state/categoriesTree/selectors';
 import CategoryTreeView from './components/CategoryTreeView';
 import TodosTreeItem from './components/TodosTreeItem';
 import TodoProfileTreeItem from './components/TodoProfileTreeItem';
+import { setExpandedCategoryState } from '../../state/categoriesTree';
 
 function mapStateToProps(state) {
     return {
@@ -14,11 +16,18 @@ function mapStateToProps(state) {
     };
 }
 
-@connect(mapStateToProps)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        setExpandedCategoryState
+    }, dispatch);
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 class CategoryTree extends Component {
     static propTypes = {
         rootCategoryIds: PropTypes.array,
-        isProfileMode: PropTypes.bool
+        isProfileMode: PropTypes.bool,
+        setExpandedCategoryState: PropTypes.func
     };
 
     static defaultProps = {
@@ -26,16 +35,17 @@ class CategoryTree extends Component {
     };
 
     render() {
-        const { isProfileMode } = this.props;
+        const { isProfileMode, setExpandedCategoryState } = this.props;
         const TreeItemComponent = isProfileMode
             ? TodoProfileTreeItem
             : TodosTreeItem;
 
         return (
             <CategoryTreeView
+                {...this.props}
                 getDataById={getCategoryById}
                 itemComponent={TreeItemComponent}
-                {...this.props}/>
+                setExpandedState={setExpandedCategoryState}/>
         );
     }
 }
