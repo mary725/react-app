@@ -7,13 +7,17 @@ import _ from 'lodash';
 
 import { addTodo } from '../../state/todos';
 import { addCategory } from '../../state/categoriesTree';
-import { getTodosByCategoryId } from '../../state/todos/selectors';
+import { getTodosByCategoryId, getAllTodos } from '../../state/todos/selectors';
 import TodosPageView from './components/TodosPageView';
 
 function mapStateToProps(state, props) {
+    const { match: { params: { categoryId } } } = props;
+
     return {
         ...state,
-        todos: getTodosByCategoryId(state, props.match.params.categoryId)
+        todos: categoryId
+                ? getTodosByCategoryId(state, categoryId)
+                : getAllTodos(state)
     };
 }
 

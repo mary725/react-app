@@ -38,7 +38,7 @@ class TodoList extends Component {
     onEdit(id) {
         const { match: { params: { categoryId } }, history } = this.props;
 
-        history.push(`/todoProfile/${categoryId}/${id}`);
+        history.push(`/todos/${categoryId}/${id}`);
     }
 
     onDelete(id) {

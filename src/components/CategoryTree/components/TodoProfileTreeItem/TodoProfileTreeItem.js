@@ -64,7 +64,7 @@ class TodoProfileTreeItem extends Component {
 
         this.onChange(() => {
             moveTodoToOtherCategory(_.toNumber(todoId), _.toNumber(categoryId), id);
-            push(`/todoProfile/${id}/${todoId}`);
+            push(`/todos/${id}/${todoId}`);
         });
     }
 

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from './reducers';
 import {
@@ -16,7 +16,7 @@ export default function configureStore(initialState) {
         createLogger(),
         customLoggerMiddleware
     ];
-    const store = createStore(connectRouter(history)(rootReducer), initialState, applyMiddleware(...middleware));
+    const store = createStore(rootReducer, initialState, applyMiddleware(...middleware));
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {

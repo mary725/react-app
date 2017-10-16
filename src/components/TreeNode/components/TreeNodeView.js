@@ -20,7 +20,8 @@ class TreeNodeView extends Component {
         customTreeNode: PropTypes.func,
 		onExpand: PropTypes.func,
         isExpanded: PropTypes.bool,
-        getDataById: PropTypes.func
+        getDataById: PropTypes.func,
+        setExpandedState: PropTypes.func
 	};
 
 	render() {

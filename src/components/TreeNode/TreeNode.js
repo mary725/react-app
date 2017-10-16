@@ -18,20 +18,14 @@ const mapStateToProps = (state, props) => {
 @autobind
 class TreeNode extends Component {
     static propTypes = {
-        id: PropTypes.number,
+        id: PropTypes.number.isRequired,
         data: PropTypes.shape({
             isExpanded: PropTypes.bool
         }),
         itemComponent: PropTypes.func,
-        getDataById: PropTypes.func,
-        setExpandedState: PropTypes.func
+        getDataById: PropTypes.func.isRequired,
+        setExpandedState: PropTypes.func.isRequired
     };
-
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
 
     onExpand() {
         const { setExpandedState, id, data: { isExpanded } } = this.props;

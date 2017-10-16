@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
+import { routerReducer } from 'react-router-redux';
 
 import { categoriesTree } from './categoriesTree';
 import { todos } from './todos';
@@ -11,5 +12,6 @@ export default combineReducers({
     todos,
     modal,
     filter,
-    form: reduxFormReducer
+    form: reduxFormReducer,
+    router: routerReducer
 });

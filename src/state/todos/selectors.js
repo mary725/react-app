@@ -3,13 +3,13 @@ import _ from 'lodash';
 
 import { getFilterParams } from '../filter/selectors';
 
-const getTodos = createSelector(
+const getTodosStructure = createSelector(
     (state) => _.get(state, 'todos.data'),
     todos => todos
 );
 
 export const getTodosCount = createSelector(
-    getTodos,
+    getTodosStructure,
     (todos) => {
         let count = 0;
 
@@ -22,7 +22,7 @@ export const getTodosCount = createSelector(
 );
 
 export const getDoneTodosCount = createSelector(
-    getTodos,
+    getTodosStructure,
     (todos) => {
         let count = 0;
 
@@ -35,7 +35,7 @@ export const getDoneTodosCount = createSelector(
 );
 
 export const getTodoById = createSelector(
-    getTodos,
+    getTodosStructure,
     (state, categoryId, todoId) => categoryId,
     (state, categoryId, todoId) => todoId,
     (todos, categoryId, todoId) => {
@@ -44,7 +44,7 @@ export const getTodoById = createSelector(
 );
 
 export const getTodosByCategoryId = createSelector(
-    getTodos,
+    getTodosStructure,
     getFilterParams,
     (state, categoryId) => categoryId,
     (todos, filterParams, categoryId) => {
@@ -62,6 +62,13 @@ export const getTodosByCategoryId = createSelector(
 
             return isShow;
         });
+    }
+);
+
+export const getAllTodos = createSelector(
+    getTodosStructure,
+    (todos) => {
+        return _.flatten(_.values(todos));
     }
 );
 

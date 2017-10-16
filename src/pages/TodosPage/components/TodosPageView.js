@@ -64,16 +64,14 @@ class TodosPageView extends Component {
                     <div className="tree">
                         <CategoryTree/>
                     </div>
-                    { _.isNumber(paramCategoryId) && (
-                        <div className="todos-list">
-                            { todos.length
-                                ? (<TodoList
-                                    {...this.props}/>)
-                                : (<div>
-                                    {this.noDataMessage}
-                                </div>)}
-                        </div>
-                    )}
+                    <div className="todos-list">
+                        { todos.length
+                            ? (<TodoList
+                                {...this.props}/>)
+                            : (<div>
+                                {this.noDataMessage}
+                            </div>)}
+                    </div>
                 </div>
             </div>
         );

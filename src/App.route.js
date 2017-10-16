@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 
 import TodosPage from './pages/TodosPage';
@@ -11,8 +11,8 @@ export const history = createBrowserHistory();
 
 const paths = {
     root: '/',
-    todos: '/todos/:categoryId',
-    todoProfile: '/todoProfile/:categoryId/:todoId'
+    todos: '/todos/:categoryId?',
+    todoProfile: '/todos/:categoryId/:todoId'
 };
 
 export const route = (
@@ -27,7 +27,6 @@ export const route = (
                 path={paths.todos}
                 component={TodosPage}/>
             <Route
-                exact
                 path={paths.todoProfile}
                 component={TodoProfilePage}/>
             <Route component={NotFound}/>
