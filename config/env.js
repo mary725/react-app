@@ -3,7 +3,11 @@
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
 
+var argv = require('yargs').argv;
+
 var REACT_APP = /^REACT_APP_/i;
+
+var MOCKS = !!argv.mocks;
 
 function getClientEnvironment(publicUrl) {
   var raw = Object
@@ -29,7 +33,9 @@ function getClientEnvironment(publicUrl) {
       .reduce((env, key) => {
         env[key] = JSON.stringify(raw[key]);
         return env;
-      }, {})
+      }, {
+        '__MOCKS__': process.env.NODE_ENV === 'development' ? JSON.stringify(MOCKS) : false
+      })
   };
 
   return { raw, stringified };

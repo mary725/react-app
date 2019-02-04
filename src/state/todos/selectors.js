@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import _ from 'lodash';
 
 import { getFilterParams } from '../filter/selectors';
+import { filterTodos } from './utils';
 
 const getTodosStructure = createSelector(
     (state) => _.get(state, 'todos.data'),
@@ -50,25 +51,17 @@ export const getTodosByCategoryId = createSelector(
     (todos, filterParams, categoryId) => {
         const todosByCategory = _.get(todos, `${categoryId}`, []);
 
-        return _.filter(todosByCategory, todo => {
-            let isShow = true;
-
-            if (filterParams.isDone) {
-                isShow = isShow && todo.isDone === filterParams.isDone;
-            }
-            if (filterParams.searchString && filterParams.searchString.length) {
-                isShow = isShow && _.includes(todo.title.toLowerCase(), filterParams.searchString.toLowerCase());
-            }
-
-            return isShow;
-        });
+        return filterTodos(todosByCategory, filterParams);
     }
 );
 
 export const getAllTodos = createSelector(
     getTodosStructure,
-    (todos) => {
-        return _.flatten(_.values(todos));
+    getFilterParams,
+    (todos, filterParams) => {
+        const allTodos = _.flatten(_.values(todos));
+
+        return filterTodos(allTodos, filterParams);
     }
 );
 

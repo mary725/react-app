@@ -38,3 +38,18 @@ export const moveTodo = (data, oldCategoryId, newCategoryId, todoId) => {
 
     return todos;
 };
+
+export const filterTodos = (todos, filterParams) => {
+    return _.filter(todos, todo => {
+        let isShow = true;
+
+        if (filterParams.isDone) {
+            isShow = isShow && todo.isDone === filterParams.isDone;
+        }
+        if (filterParams.searchString && filterParams.searchString.length) {
+            isShow = isShow && _.includes(todo.title.toLowerCase(), filterParams.searchString.toLowerCase());
+        }
+
+        return isShow;
+    });
+};

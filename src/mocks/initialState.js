@@ -43,6 +43,26 @@ export default {
                 isDone: false,
                 description: '11111111111111'
             }
+        ],
+        2: [
+            {
+                id: 4,
+                title: 'Task 4',
+                isDone: true,
+                description: '11111111111111'
+            },
+            {
+                id: 5,
+                title: 'Task 5',
+                isDone: true,
+                description: '11111111111111'
+            },
+            {
+                id: 6,
+                title: 'Task 6',
+                isDone: true,
+                description: '11111111111111'
+            }
         ]
     }
 };
